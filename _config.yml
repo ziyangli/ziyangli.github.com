@@ -1,1 +1,12 @@
+auto: true
+
 baseurl: /ziyangli.github.com
+
+markdown: rdiscount
+permalink: /:title
+
+title: ZiyangLi.github.io
+url: ziyangli.github.io
+author:
+  name: ZiyangLI
+description: "Ziyang\' Blog"

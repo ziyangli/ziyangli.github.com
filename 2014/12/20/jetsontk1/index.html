@@ -1,0 +1,774 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="Busy Dying" />
+
+
+
+  <meta name="keywords" content="jetson tk1," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="烧系统手动方法参考官方指南，并且优先选择 Grinch Kernel，因为带了很多驱动。
+
+21.2 版本的网络驱动有问题， Grinch Kernel 页面有介绍怎么搞，但是不是最优方案，复杂的解决方案看这里。
+
+注意在烧写的那一步，为了用完板子的 16G 空间，用以下命令：
+1$ sudo ./flash.sh -S 14580MiB jetson-tk1 mmcblk0p1
+利用官方 Jet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jetson TK1 介绍与配置">
+<meta property="og:url" content="http://yoursite.com/2014/12/20/jetsontk1/index.html">
+<meta property="og:site_name" content="Yes2oday">
+<meta property="og:description" content="烧系统手动方法参考官方指南，并且优先选择 Grinch Kernel，因为带了很多驱动。
+
+21.2 版本的网络驱动有问题， Grinch Kernel 页面有介绍怎么搞，但是不是最优方案，复杂的解决方案看这里。
+
+注意在烧写的那一步，为了用完板子的 16G 空间，用以下命令：
+1$ sudo ./flash.sh -S 14580MiB jetson-tk1 mmcblk0p1
+利用官方 Jet">
+<meta property="og:updated_time" content="2015-07-26T08:48:30.514Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jetson TK1 介绍与配置">
+<meta name="twitter:description" content="烧系统手动方法参考官方指南，并且优先选择 Grinch Kernel，因为带了很多驱动。
+
+21.2 版本的网络驱动有问题， Grinch Kernel 页面有介绍怎么搞，但是不是最优方案，复杂的解决方案看这里。
+
+注意在烧写的那一步，为了用完板子的 16G 空间，用以下命令：
+1$ sudo ./flash.sh -S 14580MiB jetson-tk1 mmcblk0p1
+利用官方 Jet">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post'
+  };
+</script>
+
+    <title> Jetson TK1 介绍与配置 // Yes2oday </title>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+
+
+<div class="container one-column page-post-detail">
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Yes2oday</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            標籤
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              Jetson TK1 介绍与配置
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於
+          <time itemprop="dateCreated" datetime="2014-12-20T13:40:22+08:00" content="2014-12-20">
+            2014-12-20
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分類於
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/20/jetsontk1/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/20/jetsontk1/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h2 id="烧系统">烧系统</h2><h3 id="手动方法">手动方法</h3><p>参考<a href="http://developer.download.nvidia.com/mobile/tegra/l4t/r21.1.0/l4t_quick_start_guide.txt" target="_blank" rel="external">官方指南</a>，并且优先选择 <a href="https://devtalk.nvidia.com/default/topic/795734/embedded-systems/-customkernel-the-grinch-21-2-1-for-jetson-tk1/1/" target="_blank" rel="external"><strong>Grinch Kernel</strong></a>，因为带了很多驱动。</p>
+<blockquote>
+<p>21.2 版本的网络驱动有问题， Grinch Kernel 页面有介绍怎么搞，但是不是最优方案，复杂的解决方案看<a href="https://devtalk.nvidia.com/default/topic/799075/embedded-systems/jetson-tk1-r8169-netdev-watchdog-timeout-solved-/" target="_blank" rel="external">这里</a>。</p>
+</blockquote>
+<p>注意在烧写的那一步，为了用完板子的 16G 空间，用以下命令：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./flash<span class="class">.sh</span> -S <span class="number">14580</span>MiB jetson-tk1 mmcblk0p1</span><br></pre></td></tr></table></figure>
+<h3 id="利用官方_JetPack_工具">利用官方 JetPack 工具</h3><p>官方 JetPack 会自动下载内核、文件系统、cv4Tegra、CUDA 以及一些测评工具，一步步配置并在最后推送到板子上，比较简单。</p>
+<p>缺点是看不出来怎么复用原来做好的系统，似乎每烧一块版都要解压一次文件系统并配置。而且这个工具比较新，非常不稳定。</p>
+<h2 id="配置">配置</h2><p>优先参考<a href="http://elinux.org/Jetson_TK1" target="_blank" rel="external">elinux wiki</a>，然后</p>
+<ul>
+<li><p>添加 <a href="http://mirrors.mit.edu/" target="_blank" rel="external">MIT 的源</a></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-security main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-updates main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-proposed main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-backports main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-security main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-updates main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-proposed main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-backports main restricted universe multiverse</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用 <a href="https://github.com/ilikenwf/apt-fast" target="_blank" rel="external"><strong>apt-fast</strong></a> 加速升级</p>
+</li>
+</ul>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="instruction"> add-apt-repository </span>ppa:saiarcot895/myppa</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-fast</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"alias apt-get='apt-fast'"</span> &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>自动补全</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">add</span>-repository universe</span><br><span class="line">$ sudo apt-<span class="built_in">get</span> update</span><br><span class="line">$ sudo apt-<span class="built_in">get</span> install bash-completion <span class="command"><span class="keyword">command</span>-not-found</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 <code>x11vnc</code></p>
+</li>
+<li><p>调时区并更新时间</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo dpkg-reconfigure tzdata</span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>sudo service ntp stop</span><br><span class="line"><span class="variable">$ </span>sudo ntpdate pool.ntp.org</span><br><span class="line"><span class="variable">$ </span>sudo service ntp start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载不必要的东西</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="preprocessor">get</span> remove aisleriot gnome-mines gnome-sudoku gnome-mahjongg</span><br><span class="line">$ sudo apt-<span class="preprocessor">get</span> remove deja-dup unity-lens-photos unity-lens-video unity-lens-friends unity-lens-video unity-lens-music unity-webapps-<span class="preprocessor">common</span> unity-scope-audacious rhythmbox totem</span><br><span class="line">$ sudo apt-<span class="preprocessor">get</span> remove simple-scan empathy transmission-<span class="preprocessor">common</span> transmission-gtk <span class="keyword">brasero</span><br><span class="line"></span>$ sudo apt-<span class="preprocessor">get</span> autoremove</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>完善语言安装</p>
+</li>
+<li><p>安装编译环境</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="preprocessor">get</span> install <span class="keyword">build-essentials</span><br><span class="line"></span>$ sudo apt-<span class="preprocessor">get</span> install libncurses5-dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加用户组</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -<span class="tag">a</span> -G <span class="tag">video</span> <span class="variable">$USER</span></span><br><span class="line">$ sudo usermod -<span class="tag">a</span> -G dialout <span class="variable">$USER</span></span><br><span class="line">$ sudo usermod -<span class="tag">a</span> -G plugdev <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="http://developer.download.nvidia.com/embedded/OpenCV/L4T_21.1/README.txt" target="_blank" rel="external">安装 <code>cuda</code> 及 <code>opencv4tegra</code></a></p>
+</li>
+</ul>
+<p>还需要到 <a href="http://elinux.org/Jetson/Installing_CUDA" target="_blank" rel="external"><code>cuda</code> 安装页面</a> 看看怎么添加路径。</p>
+<p>卸载方式也需要参考以上地址。</p>
+<ul>
+<li><strong>ssh</strong> 免密码登录</li>
+</ul>
+<p>修改 <strong>.ssh/authorized_keys</strong> 添加内容，内容来自主机的 <strong>.ssh/id_rsa.pub</strong></p>
+<h2 id="系统调优">系统调优</h2><ul>
+<li><p>cpu 频率<br>check <code>/var/log/boot.log</code> for booting messages and use <code>dmesg</code> to show kernel messages</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat <span class="regexp">/sys/</span>devices<span class="regexp">/system/</span>cpu<span class="regexp">/cpu0/</span>cpufreq<span class="regexp">/scaling_governor</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>disable <code>ondemand</code></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="keyword">update</span>-rc.<span class="keyword">d</span> ondemand disable</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>install <code>cpufrequtils</code></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo gedit /etc/init.d/cpufrequtils</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="增加_swapfile">增加 swapfile</h3><p>ROS 里常常有一些包，需要很大的编译空间。TK1 默认的 2G 内存完全不够，需要<a href="http://jetsonhacks.com/2014/10/04/creating-swapfile-ubuntu-nvidia-jetson-tk1/" target="_blank" rel="external">手动添加 swap</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="comment">#NVIDIA Jetson TK1</span></span><br><span class="line"><span class="comment">#Create a swapfile for Ubuntu at the current directory location</span></span><br><span class="line">fallocate <span class="operator">-l</span> <span class="number">4</span>G swapfile</span><br><span class="line"><span class="comment">#List out the file</span></span><br><span class="line">ls -lh swapfile</span><br><span class="line"><span class="comment"># Change permissions so that only root can use it</span></span><br><span class="line">chmod <span class="number">600</span> swapfile</span><br><span class="line"><span class="comment">#List out the file</span></span><br><span class="line">ls -lh swapfile</span><br><span class="line"><span class="comment">#Set up the Linux swap area</span></span><br><span class="line">mkswap swapfile</span><br><span class="line"><span class="comment">#Now start using the swapfile</span></span><br><span class="line">swapon swapfile</span><br><span class="line"><span class="comment">#Show that it's now being used</span></span><br><span class="line">swapon <span class="operator">-s</span></span><br></pre></td></tr></table></figure>
+<p>以上脚本会在执行的地方搞出一个 4G 的 swap 空间，执行完以后，系统空间就少了 4G。</p>
+<p>开机自动挂载这个空间，需要修改 fstab。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo gedit /etc/fstab</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/media/swapfile <span class="keyword">none</span> <span class="built_in">swap</span> sw <span class="number">0</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>如果想要重新调整 swap 大小，切换到 swap 所在的目录，然后</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>swapfile <span class="variable">bs=</span><span class="number">1</span>M <span class="variable">count=</span><span class="number">2048</span> <span class="comment"># 调成 2G</span></span><br><span class="line">chmod <span class="number">600</span> /swapfile <span class="comment"># only root has permission</span></span><br><span class="line">mkswap /swapfile <span class="comment"># format it to swap</span></span><br><span class="line">swapon /swapfile <span class="comment"># activate</span></span><br></pre></td></tr></table></figure>
+<h2 id="编译内核">编译内核</h2><h3 id="在_host_机上编译内核">在 host 机上编译内核</h3><p><a href="http://www.e-consystems.com/USB-3-Camera-on-JetsonTK1-kit.asp" target="_blank" rel="external">e-con</a> 公司有一页教程，很详细地讲了怎么在 host 机上编译内核、开启 USB3.0， fastboot 与 uboot 的不同配置之类的问题，很值得一看。</p>
+<h3 id="串口驱动"><a href="http://elinux.org/Jetson/Tutorials/Program_An_Arduino" target="_blank" rel="external">串口驱动</a></h3><p>一个串口设备接上的时候，可以通过 <code>lsusb</code> 查看设备使用的芯片，比如说这样子</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ubuntu<span class="annotation">@tegra</span>-ubuntu:~$ lsusb</span><br><span class="line">Bus 002 Device 006: ID 0403:6001 Future Technology Devices International, Ltd FT232 USB-Serial (UART) IC</span><br></pre></td></tr></table></figure>
+<p>可是 TK1 的内核默认没有开启支持</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@tegra-ubuntu:~$ zcat /<span class="keyword">proc</span>/config.gz | grep <span class="type">FTDI</span></span><br><span class="line"><span class="comment"># CONFIG_USB_SERIAL_FTDI_SIO is not set</span></span><br><span class="line"><span class="comment"># CONFIG_USB_FTDI_ELAN is not set</span></span><br></pre></td></tr></table></figure>
+<p>解决方案：</p>
+<ul>
+<li><p>下载内核源代码，假设解压到 <strong>~/kernel</strong> 文件夹</p>
+</li>
+<li><p>将当前内核配置复制到源码文件夹里</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zcat /<span class="keyword">proc</span>/config.gz &gt; ~/kernel/.config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动 <code>menuconfig</code> 工具配置内核</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">sudo</span> apt-<span class="preprocessor">get</span> install ncurses-<span class="keyword">bin </span>libncurses5-dev</span><br><span class="line"><span class="label">make</span> menuconfig</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入 <code>Device Drivers -&gt; USB Support -&gt; USB Serial Converter Support</code>，将 <code>USB FTDI Single Port Serial Driver</code> 标记为 <strong>M</strong>，保存并退出</p>
+</li>
+<li><p>确认驱动已设置为模块编译</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ubuntu<span class="annotation">@tegra</span>-ubuntu:~/kernel$ cat .config | grep FTDI</span><br><span class="line">CONFIG_USB_SERIAL_FTDI_SIO=m</span><br><span class="line"># CONFIG_USB_FTDI_ELAN <span class="keyword">is</span> not <span class="literal">set</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译内核（只针对串口驱动部分）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">make <span class="operator"><span class="keyword">prepare</span></span><br><span class="line">make modules_prepare</span><br><span class="line"></span><br><span class="line">make M=drivers/usb/<span class="built_in">serial</span>/</span><br><span class="line">  Building modules, stage <span class="number">2.</span></span><br><span class="line">  MODPOST <span class="number">2</span> modules</span><br><span class="line">  CC      drivers/usb/<span class="built_in">serial</span>/baseband_usb_chr.<span class="keyword">mod</span>.o</span><br><span class="line">  LD [M]  drivers/usb/<span class="built_in">serial</span>/baseband_usb_chr.ko</span><br><span class="line">  CC      drivers/usb/<span class="built_in">serial</span>/ftdi_sio.<span class="keyword">mod</span>.o</span><br><span class="line">  LD [M]  drivers/usb/<span class="built_in">serial</span>/ftdi_sio.ko</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装编译好的模块</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo cp drivers<span class="regexp">/usb/</span>serial<span class="regexp">/ftdi_sio.ko /</span>lib<span class="regexp">/modules/</span>$(uname -r)/kernel</span><br><span class="line">sudo depmod -a</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>这块可能有问题，因为貌似每次都要 <code>insmod ftdi_sio.ko</code> 才能用</p>
+</blockquote>
+<ul>
+<li>确认驱动正确安装</li>
+</ul>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="atom">ubuntu</span>@<span class="atom">tegra</span>-<span class="atom">ubuntu</span>:~/<span class="atom">kernel</span>$ <span class="atom">dmesg</span> | <span class="atom">grep</span> <span class="atom">usb</span></span><br><span class="line">[   <span class="number">57.385970</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="atom">new</span> <span class="atom">full</span>-<span class="atom">speed</span> <span class="name">USB</span> <span class="atom">device</span> <span class="atom">number</span> <span class="number">5</span> <span class="atom">using</span> <span class="atom">tegra</span>-<span class="atom">ehci</span></span><br><span class="line">[   <span class="number">57.407931</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">New</span> <span class="name">USB</span> <span class="atom">device</span> <span class="atom">found</span>, <span class="atom">idVendor</span>=<span class="number">0403</span>, <span class="atom">idProduct</span>=<span class="number">6001</span></span><br><span class="line">[   <span class="number">57.407950</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">New</span> <span class="name">USB</span> <span class="atom">device</span> <span class="atom">strings</span>: <span class="name">Mfr</span>=<span class="number">1</span>, <span class="name">Product</span>=<span class="number">2</span>, <span class="name">SerialNumber</span>=<span class="number">3</span></span><br><span class="line">[   <span class="number">57.407964</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Product</span>: <span class="name">FT232R</span> <span class="name">USB</span> <span class="name">UART</span></span><br><span class="line">[   <span class="number">57.407976</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Manufacturer</span>: <span class="name">FTDI</span></span><br><span class="line">[   <span class="number">57.407987</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">SerialNumber</span>: <span class="name">A601NG2B</span></span><br><span class="line">[   <span class="number">57.479238</span>] <span class="atom">ftdi_sio</span>: <span class="atom">version</span> <span class="atom">magic</span> <span class="string">'3.10.24 SMP preempt mod_unload ARMv7 p2v8 '</span> <span class="atom">should</span> <span class="atom">be</span> <span class="string">'3.10.24-gf455cd4 SMP preempt mod_unload ARMv7 p2v8 '</span></span><br><span class="line">[   <span class="number">57.504885</span>] <span class="atom">usbcore</span>: <span class="atom">registered</span> <span class="atom">new</span> <span class="atom">interface</span> <span class="atom">driver</span> <span class="atom">ftdi_sio</span></span><br><span class="line">[   <span class="number">57.507384</span>] <span class="atom">usbserial</span>: <span class="name">USB</span> <span class="name">Serial</span> <span class="atom">support</span> <span class="atom">registered</span> <span class="atom">for</span> <span class="name">FTDI</span> <span class="name">USB</span> <span class="name">Serial</span> <span class="name">Device</span></span><br><span class="line">[   <span class="number">57.508073</span>] <span class="atom">ftdi_sio</span> <span class="number">2</span>-<span class="number">1.5</span>:<span class="number">1.0</span>: <span class="name">FTDI</span> <span class="name">USB</span> <span class="name">Serial</span> <span class="name">Device</span> <span class="atom">converter</span> <span class="atom">detected</span></span><br><span class="line">[   <span class="number">57.508917</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Detected</span> <span class="name">FT232RL</span></span><br><span class="line">[   <span class="number">57.508934</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Number</span> <span class="atom">of</span> <span class="atom">endpoints</span> <span class="number">2</span></span><br><span class="line">[   <span class="number">57.508948</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Endpoint</span> <span class="number">1</span> <span class="name">MaxPacketSize</span> <span class="number">64</span></span><br><span class="line">[   <span class="number">57.508960</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Endpoint</span> <span class="number">2</span> <span class="name">MaxPacketSize</span> <span class="number">64</span></span><br><span class="line">[   <span class="number">57.508971</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Setting</span> <span class="name">MaxPacketSize</span> <span class="number">64</span></span><br><span class="line">[   <span class="number">57.511143</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">FTDI</span> <span class="name">USB</span> <span class="name">Serial</span> <span class="name">Device</span> <span class="atom">converter</span> <span class="atom">now</span> <span class="atom">attached</span> <span class="atom">to</span> <span class="atom">ttyUSB0</span></span><br></pre></td></tr></table></figure>
+<h3 id="挂载_USB_技巧">挂载 USB 技巧</h3><p>USB 挂载以后的序列号经常变，比如说原来是 <strong>/dev/ttyUSB0</strong>，下一次可能是 <strong>/dev/ttyUSB1</strong>，所以可以考虑用设备号挂载，比如说 <strong>/dev/serial/by-id/FTDI_XXX</strong>。</p>
+<h2 id="ROS">ROS</h2><p>ROS Wiki 上有针对 TK1 的<a href="http://wiki.ros.org/NvidiaJetsonTK1" target="_blank" rel="external">页面</a>，目前还不完善，可以跟踪。</p>
+<h3 id="安装_OpenCV">安装 OpenCV</h3><p><a href="https://devtalk.nvidia.com/default/topic/790032/embedded-systems/opencv4tegra-for-l4t-has-problem/" target="_blank" rel="external">Till Nov.24th, <code>OpenCV4Tegra</code> is totally a piece of shit</a>. </p>
+<ul>
+<li>deb install <code>cv-bridge</code><br><a href="https://devtalk.nvidia.com/default/topic/779315/embedded-systems/jetson-tk1-opencv-and-ros/" target="_blank" rel="external"><code>ros-indigo-cv-bridge</code></a></li>
+<li>modified line 112 of <code>/opt/ros/indigo/share/cv_bridge/cv_bridgeConfig.cmake</code></li>
+</ul>
+<ol>
+<li>since <code>cv4tegra</code> does not contain <code>libopencv_ocl</code></li>
+<li>the default route of <code>cv4tegra</code> is not armhf<em>*</em></li>
+</ol>
+<h4 id="workaround">workaround</h4><h2 id="IMU">IMU</h2><ul>
+<li><a href="https://github.com/KumarRobotics/imu_3dm_gx4" target="_blank" rel="external">https://github.com/KumarRobotics/imu_3dm_gx4</a></li>
+<li>install <code>rqt_runtime_monitor</code></li>
+<li>there are two way to communicate with the imu</li>
+</ul>
+<h2 id="some_more_usefully_tricks">some more usefully tricks</h2><ul>
+<li><p>show the content of a pkg</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ dpkg -L <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>hold a pkg</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-mark hold/unhold <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>download a deb</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get download <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>install a pkg no matter how</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg --force-all -i <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jetson-tk1/" rel="tag">#jetson tk1</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/01/06/3dr-radio/" rel="prev">配置 Pixhawk 带的无线串口</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/17/ros-trick/" rel="next">ROS 使用技巧</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div class="ds-thread" data-thread-key="2014/12/20/jetsontk1/"
+                       data-title="Jetson TK1 介绍与配置" data-url="http://yoursite.com/2014/12/20/jetsontk1/">
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="Ziyang Li" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Ziyang Li</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Busy Dying</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">分類</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-name">標籤</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ziyangli/" target="_blank">GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#烧系统"><span class="nav-number">1.</span> <span class="nav-text">烧系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#手动方法"><span class="nav-number">1.1.</span> <span class="nav-text">手动方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用官方_JetPack_工具"><span class="nav-number">1.2.</span> <span class="nav-text">利用官方 JetPack 工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统调优"><span class="nav-number">3.</span> <span class="nav-text">系统调优</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#增加_swapfile"><span class="nav-number">3.1.</span> <span class="nav-text">增加 swapfile</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译内核"><span class="nav-number">4.</span> <span class="nav-text">编译内核</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在_host_机上编译内核"><span class="nav-number">4.1.</span> <span class="nav-text">在 host 机上编译内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#串口驱动"><span class="nav-number">4.2.</span> <span class="nav-text">串口驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#挂载_USB_技巧"><span class="nav-number">4.3.</span> <span class="nav-text">挂载 USB 技巧</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROS"><span class="nav-number">5.</span> <span class="nav-text">ROS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装_OpenCV"><span class="nav-number">5.1.</span> <span class="nav-text">安装 OpenCV</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#workaround"><span class="nav-number">5.1.1.</span> <span class="nav-text">workaround</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IMU"><span class="nav-number">6.</span> <span class="nav-text">IMU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#some_more_usefully_tricks"><span class="nav-number">7.</span> <span class="nav-text">some more usefully tricks</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp;  2014 - 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ziyang Li</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yes2oday"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>

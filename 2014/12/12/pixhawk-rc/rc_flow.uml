@@ -1,0 +1,75 @@
+@startuml
+
+
+start
+
+header
+  powered by ZiyangLi
+end header
+
+: check if **signal_lost** or
+    **rc_failsafe** triggered;
+
+partition #AliceBlue rc_channels {
+
+while (within **channel_limit**?)
+    : constrain each channel
+    to min/max value;
+    : scale around
+    the mid point
+    即上下半截
+    去除死区后各自归一化
+    结果为 -1...1
+    死区内则为 0;
+    : reverse if needed;
+endwhile
+
+: publish **rc_channels**;
+
+}
+note right
+    rc_channels
+    的结果已经正确 reversed
+end note
+
+if (**!signal_lost**) then (yes)
+  partition #AliceBlue 广播手动控制 {
+    : 建个 **manual_control_setpoint_s** 载体;
+    : 通过
+      **get_rc_value()**
+      找到几个连续型开关对应的值;
+      note right
+          manual.x 对应 Pitch
+          manual.y 对应 Roll
+      end note
+    : 通过
+      **get_rc_sw3pos_position()**
+      及
+      **get_rc_sw2pos_position()**
+      找到几个离散型开关对应的值;
+      note right
+          整出 ON/OFF/MIDDLE 几个 enum
+      end note
+    : publish **manual_control_setpoint**;
+  }
+
+  partition #AliceBlue actuator_group_3 {
+    : 建个 **actuator_controls_s** 载体;
+    : 将上一步的东西填进去;
+    note right
+        **control[0] = manual.y**
+        **control[1] = manual.x**
+        后四路对应的是 flaps, aux1~3
+    end note
+    : publish **actuator_controls_3**;
+    note right
+
+    end note
+  }
+
+else (no)
+endif
+
+
+stop
+@enduml

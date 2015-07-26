@@ -1,0 +1,12 @@
+#+BEGIN_SRC ditaa :file mavlink_app.png
++--------------+  current pos    +----------+
+| mavlink app  +---------------->+    GCS   |
+|--------------|                 |          |
+| pos ctrl app +<----------------|          |
++--------------+  current        +----------+
+                  active waypoint
+#+END_SRC
+
+#+RESULTS:
+[[file:mavlink_app.png]]
+

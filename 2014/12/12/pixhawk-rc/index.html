@@ -1,0 +1,681 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="Busy Dying" />
+
+
+
+  <meta name="keywords" content="mavlink,pixhawk,rc," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="生产RC 信号由 src/drivers/px4io/px4io.cpp#L1653 发布，频率上限只有 50Hz (由 IO_POLL_INTERVAL 限制)。
+
+事实上在同一块代码里发现，对电调的 PWM 输出也是限制在 50Hz。
+
+发布载体为 struct rc_input_values，sensors.cpp 中 rc_poll() 流程如下：
+
+
+发布流程图表明，无论信号质量怎样，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pixhawk 遥控信号处理">
+<meta property="og:url" content="http://yoursite.com/2014/12/12/pixhawk-rc/index.html">
+<meta property="og:site_name" content="Yes2oday">
+<meta property="og:description" content="生产RC 信号由 src/drivers/px4io/px4io.cpp#L1653 发布，频率上限只有 50Hz (由 IO_POLL_INTERVAL 限制)。
+
+事实上在同一块代码里发现，对电调的 PWM 输出也是限制在 50Hz。
+
+发布载体为 struct rc_input_values，sensors.cpp 中 rc_poll() 流程如下：
+
+
+发布流程图表明，无论信号质量怎样，">
+<meta property="og:image" content="http://yoursite.com/rc_flow.png">
+<meta property="og:updated_time" content="2015-07-26T08:48:30.514Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pixhawk 遥控信号处理">
+<meta name="twitter:description" content="生产RC 信号由 src/drivers/px4io/px4io.cpp#L1653 发布，频率上限只有 50Hz (由 IO_POLL_INTERVAL 限制)。
+
+事实上在同一块代码里发现，对电调的 PWM 输出也是限制在 50Hz。
+
+发布载体为 struct rc_input_values，sensors.cpp 中 rc_poll() 流程如下：
+
+
+发布流程图表明，无论信号质量怎样，">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post'
+  };
+</script>
+
+    <title> Pixhawk 遥控信号处理 // Yes2oday </title>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+
+
+<div class="container one-column page-post-detail">
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Yes2oday</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            標籤
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              Pixhawk 遥控信号处理
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於
+          <time itemprop="dateCreated" datetime="2014-12-12T22:05:29+08:00" content="2014-12-12">
+            2014-12-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分類於
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/pixhawk/" itemprop="url" rel="index"><span itemprop="name">pixhawk</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/12/pixhawk-rc/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/12/pixhawk-rc/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h2 id="生产">生产</h2><p>RC 信号由 <strong>src/drivers/px4io/px4io.cpp#L1653</strong> 发布，频率上限只有 50Hz (由 <strong><em>IO_POLL_INTERVAL</em></strong> 限制)。</p>
+<blockquote>
+<p>事实上在同一块代码里发现，对电调的 PWM 输出也是限制在 50Hz。</p>
+</blockquote>
+<p>发布载体为 <code>struct rc_input_values</code>，<strong>sensors.cpp</strong> 中 <em>rc_poll()</em> 流程如下：</p>
+<p><a name="rc_flow"></a><img src="rc_flow.png" alt=""></p>
+<ol>
+<li><a href="#rc_flow">发布流程图</a>表明，无论信号质量怎样， <em>rc_channels</em> 总是会广播。本信息放的是归一化后的各通道数值，限制在 -1~1<blockquote>
+<p>根据 <em>rc_channels</em> 的处理方式，油门的 trim 设置非常重要，一定等于该通道的最小值</p>
+</blockquote>
+</li>
+<li>如果信号质量正常，还会广播以 <code>struct manual_control_setpoints_s</code> 为载体的 <strong><em>manual_control_setpoint</em></strong><blockquote>
+<p>在 manual 控制模式下，本消息会复制到 <em>_v_att_sp</em> 供姿态控制 app 使用</p>
+</blockquote>
+</li>
+<li>最后，<strong><em>manual_control_setpoint</em></strong> 会复制到 <strong><em>actuator_controls_3</em></strong>，至于怎么用，需要进一步研究</li>
+</ol>
+<h2 id="内部消费">内部消费</h2><h2 id="mavlink_消费">mavlink 消费</h2><p>mavlink 模块会发送两种 RC 包，分别为 <code>RC_CHANNELS_RAW</code> 及 <code>RC_CHANNELS</code>。</p>
+<h3 id="RC_CHANNELS_RAW">RC_CHANNELS_RAW</h3><p><strong>RC_CHANNELS_RAW</strong> 是为了兼容老的飞控搞的一个消息。生成机制如下：</p>
+<ul>
+<li><p>首先，消息载体 <code>mavlink_rc_channels_raw_t</code> 只能装 8 路信号，然后一位 <code>port</code> 指示这 8 路走哪个端口。事实上好的遥控器很容易就超过 8 路，比如说有 18 路的 Futaba，那么这个载体肯定是不够用的。在这种情况下，<code>port</code> 可以复用来指示是低 8 路，中 8 路或者高 8 路;</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="keyword">__mavlink_rc_channels_raw_t</span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">uint32_t</span> time_boot_ms; <span class="comment">///&lt; Timestamp (milliseconds since system boot)</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan1_raw; <span class="comment">///&lt; RC channel 1 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan2_raw; <span class="comment">///&lt; RC channel 2 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan3_raw; <span class="comment">///&lt; RC channel 3 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan4_raw; <span class="comment">///&lt; RC channel 4 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan5_raw; <span class="comment">///&lt; RC channel 5 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan6_raw; <span class="comment">///&lt; RC channel 6 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan7_raw; <span class="comment">///&lt; RC channel 7 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan8_raw; <span class="comment">///&lt; RC channel 8 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint8_t</span> port; <span class="comment">///&lt; Servo output port (set of 8 outputs = 1 port). Most MAVs will just use one, but this allows for more than 8 servos.</span></span><br><span class="line"> <span class="keyword">uint8_t</span> rssi; <span class="comment">///&lt; Receive signal strength indicator, 0: 0%, 100: 100%, 255: invalid/unknown.</span></span><br><span class="line">&#125; <span class="keyword">mavlink_rc_channels_raw_t</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后，在 <strong>uORB</strong> 上实际在走的 rc 载体是 <code>struct rc_input_values</code>，除去 18 路信号外，还包含时间戳，丢包统计之类的东西，参见 <code>drv_rc_input.h#90L</code>;</p>
+</li>
+<li>mavlink 发送 RC 包的时候，会循环 3 次，发送 <code>MAVLINK_MSG_ID_RC_CHANNELS_RAW</code> 信息(因为一次只能发 8 路。。。)</li>
+</ul>
+<h3 id="RC_CHANNELS">RC_CHANNELS</h3><p>在 <code>RC_CHANNELS_RAW</code> 消息发送以后，mavlink 会紧跟上发送 <code>RC_CHANNELS</code>。<code>RC_CHANNELS</code> 的载体是 <code>mavlink_rc_channels_t</code>，跟 <code>struct rc_input_values</code> 相比，主要是少了丢包信息。</p>
+<h3 id="优化">优化</h3><p>简单地说，<code>RC_CHANNELS_RAW</code> 基本不会用到，发送频率又跟 <code>RC_CHANNELS</code> 绑定，最好的方法是直接注释掉。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mavlink/" rel="tag">#mavlink</a>
+          
+            <a href="/tags/pixhawk/" rel="tag">#pixhawk</a>
+          
+            <a href="/tags/rc/" rel="tag">#rc</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/17/qgroundcontrol/" rel="prev">QGroundControl</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/10/git/" rel="next">GIT 使用指南</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div class="ds-thread" data-thread-key="2014/12/12/pixhawk-rc/"
+                       data-title="Pixhawk 遥控信号处理" data-url="http://yoursite.com/2014/12/12/pixhawk-rc/">
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="Ziyang Li" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Ziyang Li</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Busy Dying</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">分類</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-name">標籤</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ziyangli/" target="_blank">GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#生产"><span class="nav-number">1.</span> <span class="nav-text">生产</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部消费"><span class="nav-number">2.</span> <span class="nav-text">内部消费</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mavlink_消费"><span class="nav-number">3.</span> <span class="nav-text">mavlink 消费</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RC_CHANNELS_RAW"><span class="nav-number">3.1.</span> <span class="nav-text">RC_CHANNELS_RAW</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RC_CHANNELS"><span class="nav-number">3.2.</span> <span class="nav-text">RC_CHANNELS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">3.3.</span> <span class="nav-text">优化</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp;  2014 - 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ziyang Li</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yes2oday"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>

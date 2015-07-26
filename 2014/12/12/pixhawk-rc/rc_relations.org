@@ -1,0 +1,24 @@
+#+BEGIN_SRC ditaa :file rc_relations.png
+
+
+
+                     +-----------+-+      +-------------+
+rc_input_values----->| rc_channels +----->|   manual_   |
+                     +             +      | control_    |
+                     |             |      |   setpoint  |
+                     +-------------+      +-------------+
+--------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:rc_relations.png]]

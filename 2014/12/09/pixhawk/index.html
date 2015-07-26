@@ -1,0 +1,707 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="Busy Dying" />
+
+
+
+  <meta name="keywords" content="pixhawk," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="资源Lorenz 最近重新整理了一下 wiki，非常值得一个一个页面浏览一遍。
+工具链安装主要是安装依赖并将用户加入 dialout 组及 plugdev 组
+12$ sudo usermod -a -G dialout $USER$ sudo usermod -a -G plugdev $USER
+然后安装 arm-gcc，注意网上可以找到一个 ppa，但是不要使用，因为版本不对。
+123456">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pixhawk 基础">
+<meta property="og:url" content="http://yoursite.com/2014/12/09/pixhawk/index.html">
+<meta property="og:site_name" content="Yes2oday">
+<meta property="og:description" content="资源Lorenz 最近重新整理了一下 wiki，非常值得一个一个页面浏览一遍。
+工具链安装主要是安装依赖并将用户加入 dialout 组及 plugdev 组
+12$ sudo usermod -a -G dialout $USER$ sudo usermod -a -G plugdev $USER
+然后安装 arm-gcc，注意网上可以找到一个 ppa，但是不要使用，因为版本不对。
+123456">
+<meta property="og:image" content="http://yoursite.com/rcS.png">
+<meta property="og:updated_time" content="2015-07-26T08:48:30.518Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pixhawk 基础">
+<meta name="twitter:description" content="资源Lorenz 最近重新整理了一下 wiki，非常值得一个一个页面浏览一遍。
+工具链安装主要是安装依赖并将用户加入 dialout 组及 plugdev 组
+12$ sudo usermod -a -G dialout $USER$ sudo usermod -a -G plugdev $USER
+然后安装 arm-gcc，注意网上可以找到一个 ppa，但是不要使用，因为版本不对。
+123456">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post'
+  };
+</script>
+
+    <title> Pixhawk 基础 // Yes2oday </title>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+
+
+<div class="container one-column page-post-detail">
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Yes2oday</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            標籤
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              Pixhawk 基础
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於
+          <time itemprop="dateCreated" datetime="2014-12-09T16:36:25+08:00" content="2014-12-09">
+            2014-12-09
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分類於
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/pixhawk/" itemprop="url" rel="index"><span itemprop="name">pixhawk</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/09/pixhawk/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/09/pixhawk/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h2 id="资源">资源</h2><p><a href="https://groups.google.com/forum/#!topic/px4users/dwi1nfmTmbg" target="_blank" rel="external">Lorenz 最近重新整理了一下 wiki</a>，非常值得一个一个页面浏览一遍。</p>
+<h2 id="工具链安装"><a href="https://pixhawk.org/dev/toolchain_installation_lin" target="_blank" rel="external">工具链安装</a></h2><p>主要是安装依赖并将用户加入 <strong>dialout</strong> 组及 <strong>plugdev</strong> 组</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -<span class="tag">a</span> -G dialout <span class="variable">$USER</span></span><br><span class="line">$ sudo usermod -<span class="tag">a</span> -G plugdev <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+<p>然后安装 <a href="https://github.com/PX4/Firmware/commit/94ad98d59bab98702b790980a86c2b04d3b084ec" target="_blank" rel="external"><strong>arm-gcc</strong></a>，注意网上可以找到一个 ppa，但是不要使用，因为版本不对。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> install ia32-libs <span class="keyword">python</span>-serial <span class="keyword">python</span>-argparse <span class="keyword">grep</span></span><br><span class="line">$ sudo apt-<span class="built_in">get</span> install flex bison libncurses5-dev autoconf texinfo build-essential libtool zlib1g-dev genromfs git wget</span><br><span class="line">$ pushd .</span><br><span class="line">$ <span class="keyword">cd</span> ~</span><br><span class="line">$ wget http<span class="variable">s:</span>//launchpadlibrarian.net/<span class="number">174121628</span>/gcc-arm-none-eabi-<span class="number">4</span>_7-<span class="number">2014</span>q2-<span class="number">20140408</span>-linux.tar.bz2</span><br><span class="line">$ tar -jxf gcc-arm-none-eabi-<span class="number">4</span>_7-<span class="number">2014</span>q2-<span class="number">20140408</span>-linux.tar.bz2</span><br><span class="line">$ exportline=<span class="string">"export PATH=$HOME/gcc-arm-none-eabi-4_7-2014q2/bin:\$PATH"</span></span><br><span class="line">$ <span class="keyword">if</span> <span class="keyword">grep</span> -Fxq <span class="string">"$exportline"</span> ~/.<span class="keyword">profile</span>; then <span class="keyword">echo</span> nothing <span class="keyword">to</span> <span class="keyword">do</span> ; <span class="keyword">else</span> <span class="keyword">echo</span> $exportline &gt;&gt; ~/.<span class="keyword">profile</span>; fi</span><br><span class="line">$ . ~/.<span class="keyword">profile</span></span><br><span class="line">$ popd</span><br></pre></td></tr></table></figure>
+<h2 id="烧程序并上传固件">烧程序并上传固件</h2><p>如果 NuttX 更新过<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>make distclean</span><br><span class="line"><span class="variable">$ </span>make clean</span><br><span class="line"><span class="variable">$ </span>make archives</span><br><span class="line"><span class="variable">$ </span>make px4fmu-v2_default</span><br></pre></td></tr></table></figure></p>
+<p>否则<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>make clean</span><br><span class="line"><span class="variable">$ </span>make px4fmu-v2_default</span><br></pre></td></tr></table></figure></p>
+<p>上传<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>make upload px4fmu-v2_default</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>经测试，这一步一定要先卸载 <a href="https://pixhawk.org/dev/flash_px4fmu_lin" target="_blank" rel="external">modemmanager</a></p>
+</blockquote>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> <span class="built_in">remove</span> modemmanager</span><br></pre></td></tr></table></figure>
+<h2 id="系统启动"><a href="https://pixhawk.org/dev/system_startup" target="_blank" rel="external">系统启动</a></h2><p>启动顺序由 <code>/etc/init.d/rcS</code> 控制，步骤：</p>
+<p><img src="rcS.png" alt=""></p>
+<ol>
+<li>检测硬件</li>
+<li>加载传感器驱动</li>
+<li>其他 <code>apps</code></li>
+</ol>
+<p>所有用于自动启动的脚本都位于 <code>ROMFS/px4fmu_common/init.d/</code>。</p>
+<ul>
+<li>所以牛逼的人才自己写 <code>etc/rc.txt</code>，自己修改时改 <code>etc/config.txt</code> 及 <code>etc/extras.txt</code></li>
+<li>重刷固件的时候，<code>SYS_AUTOCONFIG = 1</code>，导致所有参数重置（包括这个变量）。</li>
+<li>重刷后依然想保留的配置（<a href="#subsec-mixer">mixer</a>, <a href="#subsec-custom-model">output mode</a>, PWM range etc.），应该写在 <code>etc/config.txt</code> 里面。</li>
+</ul>
+<h2 id="Mavlink"><a href="https://pixhawk.org/firmware/apps/mavlink" target="_blank" rel="external">Mavlink</a></h2><blockquote>
+<p>The mavlink application sends and receives MAVLink packets on a serial port and translates them into the onboard object request broker structure. </p>
+</blockquote>
+<h3 id="app_功能">app 功能</h3><ul>
+<li>航点管理 (waypoint management)<ol>
+<li>用户在地面站输入航点</li>
+<li>mavlink app 接收航点</li>
+<li>app 确定当前位置及当前激活航点的偏差判断是否到达</li>
+<li>当前激活当点会作为位置控制器的输入</li>
+</ol>
+</li>
+<li>参数更新 (updating of parameters)</li>
+</ul>
+<h3 id="使用">使用</h3><p>系统启动以后自动 <strong>TELEM1</strong> (<code>/dev/ttyS1</code>) 开 mavlink。</p>
+<ul>
+<li>默认的波特率为 57600</li>
+</ul>
+<p>如果希望用串口 (serial 4)，需要自己手动启动或者加到启动脚本里。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nsh&gt; mavlink start -d /dev/ttyS6 -<span class="tag">b</span> <span class="number">460800</span></span><br></pre></td></tr></table></figure>
+<p>usb 口 (<code>/dev/ttyACM0</code>) 比较特殊，默认开的是一个 nsh，不发送 mavlink 信息。但是连上 QGC 以后，<a href="https://groups.google.com/forum/#!topic/qgroundcontrol/jeFmn5Hcqks" target="_blank" rel="external">QGC 会通过 nsh 开 mavlink！</a>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// https://github.com/mavlink/qgroundcontrol/blob/fc493d75c1e037e6d3919906c4b1a32ebe9cad91/src/comm/MAVLinkProtocol.cc#L189</span></span><br><span class="line"><span class="comment">// Send command to start MAVLink</span></span><br><span class="line"><span class="comment">// <span class="doctag">XXX</span> hacky but safe</span></span><br><span class="line"><span class="comment">// Start NSH</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> init[] = &#123;<span class="number">0x0d</span>, <span class="number">0x0d</span>, <span class="number">0x0d</span>&#125;;</span><br><span class="line">link-&gt;writeBytes(init, <span class="keyword">sizeof</span>(init));</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* cmd = <span class="string">"sh /etc/init.d/rc.usb\n"</span>;</span><br><span class="line">link-&gt;writeBytes(cmd, <span class="built_in">strlen</span>(cmd));</span><br><span class="line">link-&gt;writeBytes(init, <span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="mavlink_log">mavlink log</h3><p>Mavlink 提供三种 log 功能。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mavlink_log_emergency(_fd, _str)</span><br><span class="line">mavlink_log_critical(_fd, _str)</span><br><span class="line">mavlink_log_info(_fd, _str)</span><br></pre></td></tr></table></figure>
+<p>这样子使用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;mavlink/mavlink_log.h&gt;</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> mavlink_fd;</span><br><span class="line">mavlink_fd = open(MAVLINK_LOG_DEVICE, <span class="number">0</span>);</span><br><span class="line">mavlink_log_info(mavlink_fd, <span class="string">"[myapp] Hello, this is myapp talking."</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>MAVLINK_LOG_DEVICE = “/dev/mavlink”</strong><ul>
+<li>这个设备由 <code>mavlink_main.cpp</code> 注册，其它模块只打开及写入</li>
+</ul>
+</li>
+<li><code>mavlink_log.h</code> 由 mavlink 提供，不是 Pixhawk 的一部分</li>
+</ul>
+<h2 id="其它">其它</h2><h3 id="Output_Mixers"><a name="subsec-mixer"></a> Output Mixers</h3><blockquote>
+<p>The <code>output mixer</code> defines how the controller output gets mapped to the motor and servo outputs.</p>
+</blockquote>
+<ol>
+<li>不同飞机的 mixer 都放在 <code>etc/mixers</code>，文件夹内有 README 可以看文件格式定义</li>
+<li>个人定制的 mixer 文件命名为 <code>FMU_ABC.mix</code>，然后通过 <code>MIXER = FMU_ABC</code> 来使用</li>
+</ol>
+<h3 id="Custom_Model"><a name="subsec-custom-model"></a> Custom Model</h3><p><code>etc/config.txt</code> 内可以定制机架类型。如果要定制 <strong>a quadcopter with “+” configuration with ESCs connected to PX4IO and custom PWM range (1100…1900)</strong>，大概写成这样：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Generic Quadcopter +</span><br><span class="line"><span class="operator"><span class="keyword">set</span> VEHICLE_TYPE mc</span><br><span class="line"><span class="keyword">set</span> MIXER FMU_quad_+</span><br><span class="line"># PX4IO PWM <span class="keyword">output</span> will be used <span class="keyword">by</span> <span class="keyword">default</span></span><br><span class="line"><span class="keyword">set</span> PWM_OUTPUTS <span class="number">1234</span>    # <span class="keyword">Change</span> parameters <span class="keyword">for</span> the <span class="keyword">first</span> <span class="number">4</span> outputs</span><br><span class="line"><span class="keyword">set</span> PWM_RATE <span class="number">400</span>        # <span class="keyword">Set</span> PWM rate <span class="keyword">to</span> <span class="number">400</span> Hz <span class="keyword">for</span> better performance</span><br><span class="line"><span class="keyword">set</span> PWM_DISARMED <span class="number">900</span>    # Motors should <span class="keyword">stop</span> <span class="keyword">at</span> this PWM <span class="keyword">value</span></span><br><span class="line"><span class="keyword">set</span> PWM_MIN <span class="number">1100</span>        # Motors should spin <span class="keyword">at</span> low, idle speed <span class="keyword">at</span> this PWM <span class="keyword">value</span></span><br><span class="line"><span class="keyword">set</span> PWM_MAX <span class="number">1900</span>        # Motors should spin <span class="keyword">at</span> <span class="keyword">max</span> speed <span class="keyword">at</span> this PWM <span class="keyword">value</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="Circuit_Breakers"><a href="https://pixhawk.org/dev/circuit_breakers?s[]=cbrk#cbrk_io_safety" target="_blank" rel="external">Circuit Breakers</a></h3><p>断流器 (Circuit Breakers) 用来在软件上屏蔽某些模块。</p>
+<p>例如想省去每次上电需要按 safety switch 的步骤，就可以使 <code>CBRK_IO_SAFETY = 22027</code>。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pixhawk/" rel="tag">#pixhawk</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/10/git/" rel="prev">GIT 使用指南</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/09/hexo/" rel="next">Hexo 安装及配置</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div class="ds-thread" data-thread-key="2014/12/09/pixhawk/"
+                       data-title="Pixhawk 基础" data-url="http://yoursite.com/2014/12/09/pixhawk/">
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="Ziyang Li" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Ziyang Li</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Busy Dying</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">分類</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-name">標籤</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ziyangli/" target="_blank">GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#资源"><span class="nav-number">1.</span> <span class="nav-text">资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具链安装"><span class="nav-number">2.</span> <span class="nav-text">工具链安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#烧程序并上传固件"><span class="nav-number">3.</span> <span class="nav-text">烧程序并上传固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统启动"><span class="nav-number">4.</span> <span class="nav-text">系统启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mavlink"><span class="nav-number">5.</span> <span class="nav-text">Mavlink</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#app_功能"><span class="nav-number">5.1.</span> <span class="nav-text">app 功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">5.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mavlink_log"><span class="nav-number">5.3.</span> <span class="nav-text">mavlink log</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number">6.</span> <span class="nav-text">其它</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Output_Mixers"><span class="nav-number">6.1.</span> <span class="nav-text"> Output Mixers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Custom_Model"><span class="nav-number">6.2.</span> <span class="nav-text"> Custom Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Circuit_Breakers"><span class="nav-number">6.3.</span> <span class="nav-text">Circuit Breakers</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp;  2014 - 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ziyang Li</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yes2oday"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+@startuml
+
+(*) if "**etc/rc.txt** exists" then
+    -->[yes] "load **etc/rc.txt**"
+    --> (*)
+    else
+    -->[no] if "**  SYS_AUTOSTART = <some ID>**" then
+        -->[yes] "加载机架相关配置，如 4011"
+        --> === B1 ===
+        else
+        -->[no] == B1 ===
+        endif
+        --> "load **etc/config.txt** if it exists\n能够重载上一步的某些参数\n进一步定制"
+        --> "根据以上机型启动对应 apps\n比如多悬翼的姿态估计"
+        --> "load **etc/extras.txt** if it exists"
+    --> (*)
+    endif
+
+@enduml

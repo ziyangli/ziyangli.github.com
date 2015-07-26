@@ -4,9 +4,9 @@
   <title><![CDATA[Yes2oday]]></title>
   <subtitle><![CDATA[Blog of Yes2oday]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://yoursite.com//"/>
+  <link href="http://ziyangli.github.io//"/>
   <updated>2015-07-26T10:59:32.602Z</updated>
-  <id>http://yoursite.com//</id>
+  <id>http://ziyangli.github.io//</id>
   
   <author>
     <name><![CDATA[Ziyang Li]]></name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title><![CDATA[ArchLinux]]></title>
-    <link href="http://yoursite.com/2015/07/26/arch/"/>
-    <id>http://yoursite.com/2015/07/26/arch/</id>
+    <link href="http://ziyangli.github.io/2015/07/26/arch/"/>
+    <id>http://ziyangli.github.io/2015/07/26/arch/</id>
     <published>2015-07-26T10:19:49.000Z</published>
     <updated>2015-07-26T10:59:32.602Z</updated>
     <content type="html"><![CDATA[<p>My W520 workstation have been at rest for quite a while and I decide to re-install an Archbang.</p>
@@ -40,16 +40,16 @@
 <h4 id="Fcitx">Fcitx</h4><p>According]]>
     </summary>
     
-      <category term="arch" scheme="http://yoursite.com/tags/arch/"/>
+      <category term="arch" scheme="http://ziyangli.github.io/tags/arch/"/>
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="http://ziyangli.github.io/categories/linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Odroid 相关]]></title>
-    <link href="http://yoursite.com/2015/04/16/odroid/"/>
-    <id>http://yoursite.com/2015/04/16/odroid/</id>
+    <link href="http://ziyangli.github.io/2015/04/16/odroid/"/>
+    <id>http://ziyangli.github.io/2015/04/16/odroid/</id>
     <published>2015-04-16T01:59:56.000Z</published>
     <updated>2015-07-26T08:48:30.514Z</updated>
     <content type="html"><![CDATA[<p>解压镜像</p>
@@ -69,16 +69,16 @@
 <figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code">]]>
     </summary>
     
-      <category term="odroid" scheme="http://yoursite.com/tags/odroid/"/>
+      <category term="odroid" scheme="http://ziyangli.github.io/tags/odroid/"/>
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="http://ziyangli.github.io/categories/linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[轻量级 ROS 替代工具]]></title>
-    <link href="http://yoursite.com/2015/04/01/ros-replacement/"/>
-    <id>http://yoursite.com/2015/04/01/ros-replacement/</id>
+    <link href="http://ziyangli.github.io/2015/04/01/ros-replacement/"/>
+    <id>http://ziyangli.github.io/2015/04/01/ros-replacement/</id>
     <published>2015-04-01T09:12:32.000Z</published>
     <updated>2015-07-26T08:48:30.518Z</updated>
     <content type="html"><![CDATA[<h2 id="nanomsg"><a href="http://nanomsg.org/index.html" target="_blank" rel="external">nanomsg</a></h2><p><strong>nanomsg</strong> 是一个 c 语言的 socket 库，实现了好几种通信模式，包括：</p>
@@ -97,18 +97,18 @@
     <![CDATA[<h2 id="nanomsg"><a href="http://nanomsg.org/index.html" target="_blank" rel="external">nanomsg</a></h2><p><strong>nanomsg</strong> 是一个 c 语言]]>
     </summary>
     
-      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
+      <category term="linux" scheme="http://ziyangli.github.io/tags/linux/"/>
     
-      <category term="ros" scheme="http://yoursite.com/tags/ros/"/>
+      <category term="ros" scheme="http://ziyangli.github.io/tags/ros/"/>
     
-      <category term="ros" scheme="http://yoursite.com/categories/ros/"/>
+      <category term="ros" scheme="http://ziyangli.github.io/categories/ros/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Linxu 中断设置]]></title>
-    <link href="http://yoursite.com/2015/03/29/linux-interrupt/"/>
-    <id>http://yoursite.com/2015/03/29/linux-interrupt/</id>
+    <link href="http://ziyangli.github.io/2015/03/29/linux-interrupt/"/>
+    <id>http://ziyangli.github.io/2015/03/29/linux-interrupt/</id>
     <published>2015-03-29T07:42:02.000Z</published>
     <updated>2015-07-26T08:48:30.514Z</updated>
     <content type="html"><![CDATA[<p>查看中断分配</p>
@@ -148,16 +148,16 @@
 <figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"]]>
     </summary>
     
-      <category term="interrupt" scheme="http://yoursite.com/tags/interrupt/"/>
+      <category term="interrupt" scheme="http://ziyangli.github.io/tags/interrupt/"/>
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="http://ziyangli.github.io/categories/linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Linux C 程序优先级设置]]></title>
-    <link href="http://yoursite.com/2015/03/29/linux-priority/"/>
-    <id>http://yoursite.com/2015/03/29/linux-priority/</id>
+    <link href="http://ziyangli.github.io/2015/03/29/linux-priority/"/>
+    <id>http://ziyangli.github.io/2015/03/29/linux-priority/</id>
     <published>2015-03-29T06:16:42.000Z</published>
     <updated>2015-07-26T08:48:30.514Z</updated>
     <content type="html"><![CDATA[<p>最近在 <strong>TK1</strong> 上用一个节点从飞控里读数据。单独跑的时候非常好，可是算法起来以后就各种延时，于是给这个节点提高优先级。</p>
@@ -181,18 +181,18 @@
 <h3 id="绑核">绑核</h3><p>在我们的系统里，主要的算法都绑定了核，所以首先将节点绑定到空闲的 C]]>
     </summary>
     
-      <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
+      <category term="cpp" scheme="http://ziyangli.github.io/tags/cpp/"/>
     
-      <category term="priority" scheme="http://yoursite.com/tags/priority/"/>
+      <category term="priority" scheme="http://ziyangli.github.io/tags/priority/"/>
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="http://ziyangli.github.io/categories/linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[在 ROS 环境里安装 Armadillo]]></title>
-    <link href="http://yoursite.com/2015/01/29/armadillo/"/>
-    <id>http://yoursite.com/2015/01/29/armadillo/</id>
+    <link href="http://ziyangli.github.io/2015/01/29/armadillo/"/>
+    <id>http://ziyangli.github.io/2015/01/29/armadillo/</id>
     <published>2015-01-29T08:37:02.000Z</published>
     <updated>2015-07-26T08:48:30.511Z</updated>
     <content type="html"><![CDATA[<p>和 Mavlink 一样， Armadillo 也建议安装到 <code>$ROSINSTALL</code> 环境变量对应的目录里，这样子 ROS 程序的 CMakeList 比较容易写。</p>
@@ -211,18 +211,18 @@
 <h2 id="安装">安装</h2><p>从官网下载解压后，进入目录</]]>
     </summary>
     
-      <category term="armadillo" scheme="http://yoursite.com/tags/armadillo/"/>
+      <category term="armadillo" scheme="http://ziyangli.github.io/tags/armadillo/"/>
     
-      <category term="catkin" scheme="http://yoursite.com/tags/catkin/"/>
+      <category term="catkin" scheme="http://ziyangli.github.io/tags/catkin/"/>
     
-      <category term="ros" scheme="http://yoursite.com/categories/ros/"/>
+      <category term="ros" scheme="http://ziyangli.github.io/categories/ros/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Pixhawk 与 ROS 坐标系总结]]></title>
-    <link href="http://yoursite.com/2015/01/19/pixhawk-convension/"/>
-    <id>http://yoursite.com/2015/01/19/pixhawk-convension/</id>
+    <link href="http://ziyangli.github.io/2015/01/19/pixhawk-convension/"/>
+    <id>http://ziyangli.github.io/2015/01/19/pixhawk-convension/</id>
     <published>2015-01-19T03:52:42.000Z</published>
     <updated>2015-07-26T08:48:30.514Z</updated>
     <content type="html"><![CDATA[<h2 id="Pixhawk">Pixhawk</h2><p>Pixhawk 上的坐标系均为 NED，即机头朝向为 x 轴正向，z 轴正向朝地。</p>
@@ -240,16 +240,16 @@
 <h3 id="加速度计">加速度计</h3><p>加速度计数值体现加速度。当水平静置飞机时，z 轴读数为 -9.8，意思是]]>
     </summary>
     
-      <category term="mavros" scheme="http://yoursite.com/tags/mavros/"/>
+      <category term="mavros" scheme="http://ziyangli.github.io/tags/mavros/"/>
     
-      <category term="pixhawk" scheme="http://yoursite.com/categories/pixhawk/"/>
+      <category term="pixhawk" scheme="http://ziyangli.github.io/categories/pixhawk/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[DigitalOcean 科学上网配置]]></title>
-    <link href="http://yoursite.com/2015/01/12/shadowsocks/"/>
-    <id>http://yoursite.com/2015/01/12/shadowsocks/</id>
+    <link href="http://ziyangli.github.io/2015/01/12/shadowsocks/"/>
+    <id>http://ziyangli.github.io/2015/01/12/shadowsocks/</id>
     <published>2015-01-12T12:00:50.000Z</published>
     <updated>2015-07-26T08:48:30.518Z</updated>
     <content type="html"><![CDATA[<h2 id="Shadowsocks">Shadowsocks</h2><h3 id="服务器端">服务器端</h3><ul>
@@ -302,18 +302,18 @@
 <figure class="highlight cmake"><table><tr><td class="gut]]>
     </summary>
     
-      <category term="pptp" scheme="http://yoursite.com/tags/pptp/"/>
+      <category term="pptp" scheme="http://ziyangli.github.io/tags/pptp/"/>
     
-      <category term="shadowsocks" scheme="http://yoursite.com/tags/shadowsocks/"/>
+      <category term="shadowsocks" scheme="http://ziyangli.github.io/tags/shadowsocks/"/>
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="http://ziyangli.github.io/categories/linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[配置 Pixhawk 带的无线串口]]></title>
-    <link href="http://yoursite.com/2015/01/06/3dr-radio/"/>
-    <id>http://yoursite.com/2015/01/06/3dr-radio/</id>
+    <link href="http://ziyangli.github.io/2015/01/06/3dr-radio/"/>
+    <id>http://ziyangli.github.io/2015/01/06/3dr-radio/</id>
     <published>2015-01-06T03:48:17.000Z</published>
     <updated>2015-07-26T08:48:30.511Z</updated>
     <content type="html"><![CDATA[<p>配置无线串口可以提高发射功率、波特率，改变网段避免冲突，官方有<a href="https://pixhawk.org/peripherals/radio-modems/start" target="_blank" rel="external">指导</a>。</p>
@@ -348,16 +348,16 @@
 <h]]>
     </summary>
     
-      <category term="radio" scheme="http://yoursite.com/tags/radio/"/>
+      <category term="radio" scheme="http://ziyangli.github.io/tags/radio/"/>
     
-      <category term="pixhawk" scheme="http://yoursite.com/categories/pixhawk/"/>
+      <category term="pixhawk" scheme="http://ziyangli.github.io/categories/pixhawk/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Jetson TK1 介绍与配置]]></title>
-    <link href="http://yoursite.com/2014/12/20/jetsontk1/"/>
-    <id>http://yoursite.com/2014/12/20/jetsontk1/</id>
+    <link href="http://ziyangli.github.io/2014/12/20/jetsontk1/"/>
+    <id>http://ziyangli.github.io/2014/12/20/jetsontk1/</id>
     <published>2014-12-20T05:40:22.000Z</published>
     <updated>2015-07-26T08:48:30.514Z</updated>
     <content type="html"><![CDATA[<h2 id="烧系统">烧系统</h2><h3 id="手动方法">手动方法</h3><p>参考<a href="http://developer.download.nvidia.com/mobile/tegra/l4t/r21.1.0/l4t_quick_start_guide.txt" target="_blank" rel="external">官方指南</a>，并且优先选择 <a href="https://devtalk.nvidia.com/default/topic/795734/embedded-systems/-customkernel-the-grinch-21-2-1-for-jetson-tk1/1/" target="_blank" rel="external"><strong>Grinch Kernel</strong></a>，因为带了很多驱动。</p>
@@ -495,16 +495,16 @@
     <![CDATA[<h2 id="烧系统">烧系统</h2><h3 id="手动方法">手动方法</h3><p>参考<a href="http://developer.download.nvidia.com/mobile/tegra/l4t/r21.1.0/l4t_quick_start_guid]]>
     </summary>
     
-      <category term="jetson tk1" scheme="http://yoursite.com/tags/jetson-tk1/"/>
+      <category term="jetson tk1" scheme="http://ziyangli.github.io/tags/jetson-tk1/"/>
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="http://ziyangli.github.io/categories/linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ROS 使用技巧]]></title>
-    <link href="http://yoursite.com/2014/12/17/ros-trick/"/>
-    <id>http://yoursite.com/2014/12/17/ros-trick/</id>
+    <link href="http://ziyangli.github.io/2014/12/17/ros-trick/"/>
+    <id>http://ziyangli.github.io/2014/12/17/ros-trick/</id>
     <published>2014-12-17T08:53:13.000Z</published>
     <updated>2015-07-26T08:48:30.518Z</updated>
     <content type="html"><![CDATA[<h2 id="源码安装_pkg">源码安装 pkg</h2><h3 id="wstool">wstool</h3><p>一个例子：</p>
@@ -536,16 +536,16 @@
 <figure class="highlight applescript"><table><tr><td class="gutter"><]]>
     </summary>
     
-      <category term="ros" scheme="http://yoursite.com/tags/ros/"/>
+      <category term="ros" scheme="http://ziyangli.github.io/tags/ros/"/>
     
-      <category term="ros" scheme="http://yoursite.com/categories/ros/"/>
+      <category term="ros" scheme="http://ziyangli.github.io/categories/ros/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Mavros 使用指南]]></title>
-    <link href="http://yoursite.com/2014/12/17/mavros/"/>
-    <id>http://yoursite.com/2014/12/17/mavros/</id>
+    <link href="http://ziyangli.github.io/2014/12/17/mavros/"/>
+    <id>http://ziyangli.github.io/2014/12/17/mavros/</id>
     <published>2014-12-17T03:45:43.000Z</published>
     <updated>2015-07-26T08:48:30.514Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -573,20 +573,20 @@
 <p>mavros 之前有一个老的版本，叫 <a href="https://github.com/mavlink/mavlink_ros" target="_blank" rel="external">mavlink_ros</a>，比较简单，可以用来]]>
     </summary>
     
-      <category term="mavlink" scheme="http://yoursite.com/tags/mavlink/"/>
+      <category term="mavlink" scheme="http://ziyangli.github.io/tags/mavlink/"/>
     
-      <category term="pixhawk" scheme="http://yoursite.com/tags/pixhawk/"/>
+      <category term="pixhawk" scheme="http://ziyangli.github.io/tags/pixhawk/"/>
     
-      <category term="ros" scheme="http://yoursite.com/tags/ros/"/>
+      <category term="ros" scheme="http://ziyangli.github.io/tags/ros/"/>
     
-      <category term="ros" scheme="http://yoursite.com/categories/ros/"/>
+      <category term="ros" scheme="http://ziyangli.github.io/categories/ros/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[QGroundControl]]></title>
-    <link href="http://yoursite.com/2014/12/17/qgroundcontrol/"/>
-    <id>http://yoursite.com/2014/12/17/qgroundcontrol/</id>
+    <link href="http://ziyangli.github.io/2014/12/17/qgroundcontrol/"/>
+    <id>http://ziyangli.github.io/2014/12/17/qgroundcontrol/</id>
     <published>2014-12-17T03:05:10.000Z</published>
     <updated>2015-07-26T08:48:30.518Z</updated>
     <content type="html"><![CDATA[<h2 id="依赖安装">依赖安装</h2><h3 id="Qt5-4">Qt5.4</h3><p>自从某个版本以后，编译 QGroundControl 要求 Qt5.4，Ubuntu 14.04 需要自行<a href="https://launchpad.net/~beineri/+archive/ubuntu/opt-qt54-trusty" target="_blank" rel="external">添加 ppa</a>。</p>
@@ -610,18 +610,18 @@
     <![CDATA[<h2 id="依赖安装">依赖安装</h2><h3 id="Qt5-4">Qt5.4</h3><p>自从某个版本以后，编译 QGroundControl 要求 Qt5.4，Ubuntu 14.04 需要自行<a href="https://launchpad.net/~bein]]>
     </summary>
     
-      <category term="pixhawk" scheme="http://yoursite.com/tags/pixhawk/"/>
+      <category term="pixhawk" scheme="http://ziyangli.github.io/tags/pixhawk/"/>
     
-      <category term="qgroundcontrol" scheme="http://yoursite.com/tags/qgroundcontrol/"/>
+      <category term="qgroundcontrol" scheme="http://ziyangli.github.io/tags/qgroundcontrol/"/>
     
-      <category term="pixhawk" scheme="http://yoursite.com/categories/pixhawk/"/>
+      <category term="pixhawk" scheme="http://ziyangli.github.io/categories/pixhawk/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Pixhawk 遥控信号处理]]></title>
-    <link href="http://yoursite.com/2014/12/12/pixhawk-rc/"/>
-    <id>http://yoursite.com/2014/12/12/pixhawk-rc/</id>
+    <link href="http://ziyangli.github.io/2014/12/12/pixhawk-rc/"/>
+    <id>http://ziyangli.github.io/2014/12/12/pixhawk-rc/</id>
     <published>2014-12-12T14:05:29.000Z</published>
     <updated>2015-07-26T08:48:30.514Z</updated>
     <content type="html"><![CDATA[<h2 id="生产">生产</h2><p>RC 信号由 <strong>src/drivers/px4io/px4io.cpp#L1653</strong> 发布，频率上限只有 50Hz (由 <strong><em>IO_POLL_INTERVAL</em></strong> 限制)。</p>
@@ -658,20 +658,20 @@
     <![CDATA[<h2 id="生产">生产</h2><p>RC 信号由 <strong>src/drivers/px4io/px4io.cpp#L1653</strong> 发布，频率上限只有 50Hz (由 <strong><em>IO_POLL_INTERVAL</em></strong>]]>
     </summary>
     
-      <category term="mavlink" scheme="http://yoursite.com/tags/mavlink/"/>
+      <category term="mavlink" scheme="http://ziyangli.github.io/tags/mavlink/"/>
     
-      <category term="pixhawk" scheme="http://yoursite.com/tags/pixhawk/"/>
+      <category term="pixhawk" scheme="http://ziyangli.github.io/tags/pixhawk/"/>
     
-      <category term="rc" scheme="http://yoursite.com/tags/rc/"/>
+      <category term="rc" scheme="http://ziyangli.github.io/tags/rc/"/>
     
-      <category term="pixhawk" scheme="http://yoursite.com/categories/pixhawk/"/>
+      <category term="pixhawk" scheme="http://ziyangli.github.io/categories/pixhawk/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[GIT 使用指南]]></title>
-    <link href="http://yoursite.com/2014/12/10/git/"/>
-    <id>http://yoursite.com/2014/12/10/git/</id>
+    <link href="http://ziyangli.github.io/2014/12/10/git/"/>
+    <id>http://ziyangli.github.io/2014/12/10/git/</id>
     <published>2014-12-10T09:21:44.000Z</published>
     <updated>2015-07-26T08:48:30.511Z</updated>
     <content type="html"><![CDATA[<h2 id="基本命令">基本命令</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user<span class="class">.name</span> ziyangli</span><br><span class="line">git config --global user<span class="class">.email</span> ziyang<span class="class">.d</span><span class="class">.lee</span>@gmail<span class="class">.com</span></span><br><span class="line"></span><br><span class="line">git config --list #查看配置的信息</span><br><span class="line">git help push/config<span class="comment">/*** # 查看某条命令的使用方式</span></span><br></pre></td></tr></table></figure>
@@ -687,16 +687,16 @@
     <![CDATA[<h2 id="基本命令">基本命令</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line"]]>
     </summary>
     
-      <category term="git" scheme="http://yoursite.com/tags/git/"/>
+      <category term="git" scheme="http://ziyangli.github.io/tags/git/"/>
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="http://ziyangli.github.io/categories/linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Pixhawk 基础]]></title>
-    <link href="http://yoursite.com/2014/12/09/pixhawk/"/>
-    <id>http://yoursite.com/2014/12/09/pixhawk/</id>
+    <link href="http://ziyangli.github.io/2014/12/09/pixhawk/"/>
+    <id>http://ziyangli.github.io/2014/12/09/pixhawk/</id>
     <published>2014-12-09T08:36:25.000Z</published>
     <updated>2015-07-26T08:48:30.518Z</updated>
     <content type="html"><![CDATA[<h2 id="资源">资源</h2><p><a href="https://groups.google.com/forum/#!topic/px4users/dwi1nfmTmbg" target="_blank" rel="external">Lorenz 最近重新整理了一下 wiki</a>，非常值得一个一个页面浏览一遍。</p>
@@ -772,18 +772,18 @@
     <![CDATA[<h2 id="资源">资源</h2><p><a href="https://groups.google.com/forum/#!topic/px4users/dwi1nfmTmbg" target="_blank" rel="external">Lorenz 最近重新整理了一下]]>
     </summary>
     
-      <category term="pixhawk" scheme="http://yoursite.com/tags/pixhawk/"/>
+      <category term="pixhawk" scheme="http://ziyangli.github.io/tags/pixhawk/"/>
     
-      <category term="pixhawk" scheme="http://yoursite.com/categories/pixhawk/"/>
+      <category term="pixhawk" scheme="http://ziyangli.github.io/categories/pixhawk/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Hexo 安装及配置]]></title>
-    <link href="http://yoursite.com/2014/12/09/hexo/"/>
-    <id>http://yoursite.com/2014/12/09/hexo/</id>
+    <link href="http://ziyangli.github.io/2014/12/09/hexo/"/>
+    <id>http://ziyangli.github.io/2014/12/09/hexo/</id>
     <published>2014-12-09T08:12:04.000Z</published>
-    <updated>2015-07-26T08:48:30.511Z</updated>
+    <updated>2015-07-26T14:29:40.776Z</updated>
     <content type="html"><![CDATA[<h2 id="安装_nvm_(Node_Version_Manager)">安装 <a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a> (Node Version Manager)</h2><p>利用官方脚本</p>
 <blockquote>
 <p>脚本会把 nvm 克隆到 ~/.nvm</p>
@@ -817,18 +817,18 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-tag-asset-res --save</span><br></pre></td></tr></table></figure>
 <h2 id="使用">使用</h2><p>发现新终端内总是需要先开启 nvm</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>nvm <span class="keyword">use</span> [tab]</span><br></pre></td></tr></table></figure>
-]]></content>
+<h2 id="CDN_加速"><a href="http://libs.useso.com/" target="_blank" rel="external">CDN 加速</a></h2>]]></content>
     <summary type="html">
     <![CDATA[<h2 id="安装_nvm_(Node_Version_Manager)">安装 <a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a> (Node Version M]]>
     </summary>
     
-      <category term="blog" scheme="http://yoursite.com/tags/blog/"/>
+      <category term="blog" scheme="http://ziyangli.github.io/tags/blog/"/>
     
-      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+      <category term="hexo" scheme="http://ziyangli.github.io/tags/hexo/"/>
     
-      <category term="markdown" scheme="http://yoursite.com/tags/markdown/"/>
+      <category term="markdown" scheme="http://ziyangli.github.io/tags/markdown/"/>
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="http://ziyangli.github.io/categories/linux/"/>
     
   </entry>
   

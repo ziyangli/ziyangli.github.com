@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  
+  <title><![CDATA[Yes2oday]]></title>
+  <subtitle><![CDATA[Blog of Yes2oday]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://yoursite.com//"/>
+  <updated>2015-07-26T10:59:32.602Z</updated>
+  <id>http://yoursite.com//</id>
+  
+  <author>
+    <name><![CDATA[Ziyang Li]]></name>
+    <email><![CDATA[ziyang.d.lee@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ArchLinux]]></title>
+    <link href="http://yoursite.com/2015/07/26/arch/"/>
+    <id>http://yoursite.com/2015/07/26/arch/</id>
+    <published>2015-07-26T10:19:49.000Z</published>
+    <updated>2015-07-26T10:59:32.602Z</updated>
+    <content type="html"><![CDATA[<p>My W520 workstation have been at rest for quite a while and I decide to re-install an Archbang.</p>
+<h4 id="Fcitx">Fcitx</h4><p>According to <a href="https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" target="_blank" rel="external">Wiki</a>, I need to append the following to <code>.xinitrc</code> since my VM is <code>Slim</code> launched</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GTK_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> QT_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> XMODIFIERS=<span class="string">"@im=fcitx"</span></span><br></pre></td></tr></table></figure>
+<p>However it does not work until I append it to <code>.xprofile</code>.</p>
+<ul>
+<li>Append this to <code>.config/openbox/autostart</code> to auto start <strong>fcitx</strong> at launch:</li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">sleep</span> <span class="number">2</span> <span class="keyword">&amp;&amp;</span> fcitx)</span> &amp;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>To input Chinese in Emacs</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">env</span> LC_CTYPE=<span class="string">"zh_CN.UTF-8"</span> emacs</span><br></pre></td></tr></table></figure>
+<h4 id="Dropbox">Dropbox</h4><p>I have to <a href="http://crunchbang.org/forums/viewtopic.php?id=38154&amp;p=2" target="_blank" rel="external">change tint2 Alpha from 100 to 99</a>, in order to get the System Tray icon.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>My W520 workstation have been at rest for quite a while and I decide to re-install an Archbang.</p>
+<h4 id="Fcitx">Fcitx</h4><p>According]]>
+    </summary>
+    
+      <category term="arch" scheme="http://yoursite.com/tags/arch/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Odroid 相关]]></title>
+    <link href="http://yoursite.com/2015/04/16/odroid/"/>
+    <id>http://yoursite.com/2015/04/16/odroid/</id>
+    <published>2015-04-16T01:59:56.000Z</published>
+    <updated>2015-07-26T08:48:30.514Z</updated>
+    <content type="html"><![CDATA[<p>解压镜像</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xz -d <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>.img.xz</span><br></pre></td></tr></table></figure>
+<p>烧写镜像</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="tag">dd</span> <span class="keyword">if</span>=ubuntu-<span class="number">14.04</span>.<span class="number">1</span>lts-robotics-odroid-xu3-<span class="number">20141228</span><span class="class">.img</span> of=/dev/sdc bs=<span class="number">4</span>M &amp;&amp; sync</span><br></pre></td></tr></table></figure>
+<p>修改源</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">"deb http://ports.ubuntu.com/ trusty main restricted universe multiverse"</span> &gt; /etc/apt/sources.<span class="keyword">list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"deb http://ports.ubuntu.com/ trusty-security main restricted universe multiverse"</span> &gt;&gt; /etc/apt/sources.<span class="keyword">list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"deb http://ports.ubuntu.com/ trusty-updates main restricted universe multiverse"</span> &gt;&gt; /etc/apt/sources.<span class="keyword">list</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"deb http://ports.ubuntu.com/ trusty-backports main restricted universe multiverse"</span> &gt;&gt; /etc/apt/sources.<span class="keyword">list</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/umiddelb/armhf/wiki/Install-Ubuntu-Core-14.04-on-ARMv7-(ODROID-C1)" target="_blank" rel="external">必要程序</a></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt-get -y install software-properties-common u-boot-tools isc-dhcp-client ubuntu-minimal ssh</span><br><span class="line">apt-get -y install screen wireless-tools iw curl libncurses5-dev cpufrequtils rcs aptitude make bc lzop <span class="keyword">man</span>-db ntp usbutils pciutils lsof most sysfsutils linux-firmware linux-firmware-nonfree</span><br><span class="line">apt-get -y install python-software-properties</span><br></pre></td></tr></table></figure>
+<p>必要 ROS 包：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-fast <span class="keyword">install</span> ros-indigo-tf ros-indigo-diagnostic-updater ros-indigo-image-transport ros-indigo-cv-bridge</span><br></pre></td></tr></table></figure>
+<p><a href="https://pixhawk.org/peripherals/onboard_computers/odroid_c1" target="_blank" rel="external">配置无线</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>解压镜像</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code">]]>
+    </summary>
+    
+      <category term="odroid" scheme="http://yoursite.com/tags/odroid/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[轻量级 ROS 替代工具]]></title>
+    <link href="http://yoursite.com/2015/04/01/ros-replacement/"/>
+    <id>http://yoursite.com/2015/04/01/ros-replacement/</id>
+    <published>2015-04-01T09:12:32.000Z</published>
+    <updated>2015-07-26T08:48:30.518Z</updated>
+    <content type="html"><![CDATA[<h2 id="nanomsg"><a href="http://nanomsg.org/index.html" target="_blank" rel="external">nanomsg</a></h2><p><strong>nanomsg</strong> 是一个 c 语言的 socket 库，实现了好几种通信模式，包括：</p>
+<ul>
+<li>PAIR - simple one-to-one communication</li>
+<li>BUS - simple many-to-many communication</li>
+<li>REQREP - allows to build clusters of stateless services to process user requests</li>
+<li>PUBSUB - distributes messages to large sets of interested subscribers</li>
+<li>PIPELINE - aggregates messages from multiple sources and load balances them among many destinations</li>
+<li>SURVEY - allows to query state of multiple applications in a single go </li>
+</ul>
+<p>其中， BUS， REQREP， PUBSUB 是 ROS 常见的形式。</p>
+<p><a href="http://tim.dysinger.net/posts/2013-09-16-getting-started-with-nanomsg.html" target="_blank" rel="external">这里</a> 有相应的例程，不过感觉不是很对，比如说里面 REQREP 的例子，可以考虑直接看 <a href="http://nanomsg.org/v0.5/nanomsg.7.html" target="_blank" rel="external">API 文档</a>，也包含简单的例子。</p>
+<h2 id="zeromq">zeromq</h2>]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="nanomsg"><a href="http://nanomsg.org/index.html" target="_blank" rel="external">nanomsg</a></h2><p><strong>nanomsg</strong> 是一个 c 语言]]>
+    </summary>
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
+    
+      <category term="ros" scheme="http://yoursite.com/tags/ros/"/>
+    
+      <category term="ros" scheme="http://yoursite.com/categories/ros/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Linxu 中断设置]]></title>
+    <link href="http://yoursite.com/2015/03/29/linux-interrupt/"/>
+    <id>http://yoursite.com/2015/03/29/linux-interrupt/</id>
+    <published>2015-03-29T07:42:02.000Z</published>
+    <updated>2015-07-26T08:48:30.514Z</updated>
+    <content type="html"><![CDATA[<p>查看中断分配</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /<span class="keyword">proc</span>/interrupts</span><br></pre></td></tr></table></figure>
+<p>典型输出如下：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">           CPU0       CPU1       CPU2       CPU3</span><br><span class="line"> 29:   <span class="number">18801666</span>   <span class="number">16647304</span>   <span class="number">15917474</span>   <span class="number">14185149</span>       GIC  arch_timer</span><br><span class="line"> 30:          0          0          0          0       GIC  arch_timer</span><br><span class="line"> 32:          0          0          0          0       GIC  timer0</span><br><span class="line"> 51:          0          0          0          0       GIC  mmc1</span><br><span class="line"> 52:          0          0          0          0       GIC  tegra-otg, tegra-udc</span><br><span class="line"> 53:          0          0          0          0       GIC  pmc_usb_phy_wake_isr</span><br><span class="line"> 55:          0          0          0          0       GIC  tegra-sata</span><br><span class="line"> 63:      68639          0          0          0       GIC  mmc0</span><br><span class="line"> 69:     142835     265551          0          0       GIC  serial-tegra.1</span><br><span class="line"></span><br><span class="line"> 71:    <span class="number">3748708</span>          0          0          0       GIC  tegra-xhci:usb1</span><br><span class="line"></span><br><span class="line"> 97:    <span class="number">9260863</span>          0          0          0       GIC  host_syncpt</span><br><span class="line"></span><br><span class="line">122:        602          0          0          0       GIC  serial</span><br><span class="line"></span><br><span class="line">131:     483307          0          0          0       GIC  PCIe-MSI</span><br><span class="line"></span><br><span class="line">642:     477100          0          0          0  PCIe-MSI  eth3</span><br><span class="line">643:       6232          0          0          0  PCIe-MSI  iwlwifi</span><br></pre></td></tr></table></figure>
+<p>其中 serial-tegra.1 对应 TK1 上 <strong><em>/dev/ttyTHS1</em></strong> 的中断。第一列代表的是中断号，每个 CPU 下面的数字代表接收到的中断数。</p>
+<p>默认情况下，系统用 CPU0 去收所有的中断。处理中断是非常耗时的任务，而系统又认为所有 CPU 的计算能力是一致的。当 CPU0 用了 30% 的资源去处理中断时，那别的 CPU 也只能发挥 70% 的计算性能，所以需要合理分配中断。</p>
+<h2 id="SMP/Processor_affinity"><a href="http://www.alexonlinux.com/smp-affinity-and-proper-interrupt-handling-in-linux" target="_blank" rel="external">SMP/Processor affinity</a></h2><p>Affinity 指的是任务与处理器的亲和度。如果我们一直用处理器 X 运行任务 Y，两者 <strong>affine</strong>。<strong>Affine</strong> 的情况下，处理器的 cache 里会存有任务部分的 memory，所以效率是比较高的。</p>
+<p>和一般进程相反，对中断来说，<strong>affine</strong> 到某个处理器则会导致低效。因为中断程序往往非常小，将中断程序存在 CPU 里不能改善 cache hits，而多个中断会长期占用 CPU。调度器会认为所有核都和这个中断处理核一样忙，导致其它 CPU 实际上很空闲，但是缺用不上。</p>
+<h2 id="APIC_(Advanced_Programmable_Interrupt_Controller)">APIC (Advanced Programmable Interrupt Controller)</h2><p>APIC 负责分配中断，默认将所有中断交给 CPU0 处理。APIC 具有好几种传输 (delivery) 及 (destination) 模式，包括：</p>
+<ul>
+<li>physical</li>
+<li>logical</li>
+<li>fixed</li>
+<li>low priority</li>
+</ul>
+<p>能够将中断绑到任意核上 (其实只能绑到前八个核)，还能做负载均衡。</p>
+<h3 id="使用">使用</h3><ul>
+<li>对某些系统来说，可能需要先停掉 irqbalance 服务</li>
+</ul>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># /etc/init.d/irqbalance stop</span></span><br></pre></td></tr></table></figure>
+<p>对每一个中断号， <strong><em>/proc/irq/</em></strong> 下面都有一个对应的目录，下面有一个 <em>smp_affinity</em> 文件，通过修改这个文件，能够改变该中断绑定的核。</p>
+<p>文件里存的是一个 16 进制的 bitmask。哪一位为 1,就用哪个核。</p>
+<p>比如说我们要让 CPU1 处理 TK1 的串口中断，可以这样：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c 'echo <span class="number">2</span> &gt; /<span class="keyword">proc</span>/irq/<span class="number">69</span>/smp_affinity'</span><br></pre></td></tr></table></figure>
+<p>理论上，f 能够使四个核平均处理中断。但是，实际结果还要看 APIC 是否处于 physical destination mode 及 low priority delivery mode，如果是的话才可以，可惜 TK1 不是。</p>
+<ul>
+<li>在内核里关掉 CONFIG_HOTPLUG_CPU 可以使 APIC 正常工作</li>
+</ul>
+<blockquote>
+<p>ubuntu 可以安装一个叫 irqbalance 的东西，说不定可以解决</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>查看中断分配</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"]]>
+    </summary>
+    
+      <category term="interrupt" scheme="http://yoursite.com/tags/interrupt/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Linux C 程序优先级设置]]></title>
+    <link href="http://yoursite.com/2015/03/29/linux-priority/"/>
+    <id>http://yoursite.com/2015/03/29/linux-priority/</id>
+    <published>2015-03-29T06:16:42.000Z</published>
+    <updated>2015-07-26T08:48:30.514Z</updated>
+    <content type="html"><![CDATA[<p>最近在 <strong>TK1</strong> 上用一个节点从飞控里读数据。单独跑的时候非常好，可是算法起来以后就各种延时，于是给这个节点提高优先级。</p>
+<h3 id="绑核">绑核</h3><p>在我们的系统里，主要的算法都绑定了核，所以首先将节点绑定到空闲的 CPU 核上。有两种方式：</p>
+<ol>
+<li><code>CPU_SET</code><br>待补充</li>
+<li><code>taskset</code><br><code>taskset</code> 是一个 shell 命令，我直接在节点的 launch 文件里加了一行<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="command">launch</span>-prefix=<span class="string">"taskset -c 1"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="renice"><strong>renice</strong></h3><p><code>renice</code> 改的是进程的优先级，取值范围应该为 -20..0，越小优先级越高。用 <code>top</code> 命令观察 <strong>NI</strong> 项可以看到变化。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> pid = getpid();</span><br><span class="line">char renice_cmd[<span class="number">128</span>];</span><br><span class="line"><span class="keyword">sprintf</span>(renice_cmd, <span class="string">"sudo renice -20 <span class="variable">%d</span>"</span>, pid);</span><br><span class="line">ROS_INFO(<span class="string">"renice ncore_bridge: <span class="variable">%d</span>"</span>, <span class="keyword">system</span>(renice_cmd));</span><br></pre></td></tr></table></figure>
+<h3 id="pthread_参数"><strong>pthread</strong> 参数</h3><p>线程参数里可以指定调度策略及优先级。</p>
+<p>调度策略有普通及实时之分。普通策略有 <strong>OTHER</strong>， <strong>BATCH</strong> 及 <strong>IDLE</strong>，没有优先级参数; 实时策略有 <strong>FIFO</strong> 和 <strong>RR</strong>，优先级取值 <a href="http://linux.die.net/man/2/sched_setscheduler" target="_blank" rel="external">1..99</a>。 <code>top</code> 命令 <strong>PI</strong> 项可以看到变化，当优先级设为 99 时， <strong>PI</strong> 项直接显示 rt。</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int priority = <span class="number">40</span>;</span><br><span class="line">struct sched_param param;</span><br><span class="line">param.sched_priority = priority;</span><br><span class="line"><span class="keyword">if</span><span class="params">(pthread_setschedparam<span class="params">(pthread_self<span class="params">()</span>, SCHED_FIFO, &amp; param)</span>)</span> &#123;</span><br><span class="line">    ROS_ERROR<span class="params">(<span class="string">"error while setting thread priority to %d"</span>, priority)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="特别注意！！！">特别注意！！！</h3><p>在代码里调进程或线程优先级需要特殊权限，否则会提示 <code>sched_setscheduler: Operation not permitted</code> 之类的东西。可以通过 <a href="http://www-01.ibm.com/support/knowledgecenter/SSSTCZ_2.0.0/com.ibm.softrt.doc/realtime/lnx_config_priority.html" target="_blank" rel="external">PAM (Pluggable Authentication Modules) 模块</a> 做这件事。</p>
+<p>PAM 会读取 <strong><em>/etc/security/limits.conf</em></strong>，暴力一点，直接加一行</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>- rtprio 100</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近在 <strong>TK1</strong> 上用一个节点从飞控里读数据。单独跑的时候非常好，可是算法起来以后就各种延时，于是给这个节点提高优先级。</p>
+<h3 id="绑核">绑核</h3><p>在我们的系统里，主要的算法都绑定了核，所以首先将节点绑定到空闲的 C]]>
+    </summary>
+    
+      <category term="cpp" scheme="http://yoursite.com/tags/cpp/"/>
+    
+      <category term="priority" scheme="http://yoursite.com/tags/priority/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[在 ROS 环境里安装 Armadillo]]></title>
+    <link href="http://yoursite.com/2015/01/29/armadillo/"/>
+    <id>http://yoursite.com/2015/01/29/armadillo/</id>
+    <published>2015-01-29T08:37:02.000Z</published>
+    <updated>2015-07-26T08:48:30.511Z</updated>
+    <content type="html"><![CDATA[<p>和 Mavlink 一样， Armadillo 也建议安装到 <code>$ROSINSTALL</code> 环境变量对应的目录里，这样子 ROS 程序的 CMakeList 比较容易写。</p>
+<h2 id="安装">安装</h2><p>从官网下载解压后，进入目录</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmake -<span class="keyword">D</span> CMAKE_BUILD_TYPE=<span class="keyword">Release</span> -<span class="keyword">D</span> CMAKE_INSTALL_PREFIX=$(ROSINSTALL) .</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>不过想要 Armadillo 火力全开，还需要额外安装一堆数学库，又涉及到 Armadillo 编译时怎么引用 <code>$ROSINSTALL</code> 里的库的问题，暂未研究。</p>
+<!--
+沈老师提供了一份 Makefile，可以从源里下载代码，然后编译并安装。
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">all</span>: <span class="string">armadillo</span></span><br><span class="line"></span><br><span class="line"><span class="makefile"><span class="constant">VERSION</span> = 3.800.2</span><br><span class="line"><span class="comment">## VERSION = 4.600.4</span></span><br><span class="line"><span class="constant">TARBALL</span> = build/armadillo-<span class="variable">$(VERSION)</span>.tar.gz</span><br><span class="line"><span class="constant">TARBALL_URL</span> = http://downloads.sourceforge.net/arma/armadillo-<span class="variable">$(VERSION)</span>.tar.gz</span><br><span class="line"><span class="constant">SOURCE_DIR</span> = build/armadillo-<span class="variable">$(VERSION)</span></span><br><span class="line">include $(shell rospack find mk)/download_unpack_build.mk</span><br><span class="line"></span><br><span class="line">armadillo: $(SOURCE_DIR)/unpacked</span><br><span class="line">	cd <span class="variable">$(SOURCE_DIR)</span> &amp;&amp; cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=<span class="variable">$(ROSINSTALL)</span> .</span><br><span class="line">	cd <span class="variable">$(SOURCE_DIR)</span> &amp;&amp; make install</span><br><span class="line">	touch armadillo</span><br><span class="line"></span><br><span class="line"><span class="title">clean:</span></span><br><span class="line">	rm -rf armadillo <span class="variable">$(SOURCE_DIR)</span></span><br><span class="line"></span><br><span class="line">wipe: clean</span><br><span class="line">	rm -rf build</span></span><br></pre></td></tr></table></figure>
+<p>—&gt;</p>
+<h2 id="使用">使用</h2><h3 id="CMakeList-txt">CMakeList.txt</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(Armadillo REQUIRED)</span><br><span class="line"><span class="keyword">include_directories</span>(</span><br><span class="line">  <span class="envvar">$&#123;ARMADILLO_INCLUDE_DIRS&#125;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="代码_Header">代码 Header</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;armadillo&gt;</span></span><br></pre></td></tr></table></figure>
+-->]]></content>
+    <summary type="html">
+    <![CDATA[<p>和 Mavlink 一样， Armadillo 也建议安装到 <code>$ROSINSTALL</code> 环境变量对应的目录里，这样子 ROS 程序的 CMakeList 比较容易写。</p>
+<h2 id="安装">安装</h2><p>从官网下载解压后，进入目录</]]>
+    </summary>
+    
+      <category term="armadillo" scheme="http://yoursite.com/tags/armadillo/"/>
+    
+      <category term="catkin" scheme="http://yoursite.com/tags/catkin/"/>
+    
+      <category term="ros" scheme="http://yoursite.com/categories/ros/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Pixhawk 与 ROS 坐标系总结]]></title>
+    <link href="http://yoursite.com/2015/01/19/pixhawk-convension/"/>
+    <id>http://yoursite.com/2015/01/19/pixhawk-convension/</id>
+    <published>2015-01-19T03:52:42.000Z</published>
+    <updated>2015-07-26T08:48:30.514Z</updated>
+    <content type="html"><![CDATA[<h2 id="Pixhawk">Pixhawk</h2><p>Pixhawk 上的坐标系均为 NED，即机头朝向为 x 轴正向，z 轴正向朝地。</p>
+<h3 id="加速度计">加速度计</h3><p>加速度计数值体现加速度。当水平静置飞机时，z 轴读数为 -9.8，意思是飞机等效运动为向上（z轴负方向）加速。</p>
+<h3 id="Gyro">Gyro</h3><p>简单理解即可。</p>
+<h3 id="Mag">Mag</h3><p>测试发现，假设存在一个指向北极的线 $\mathsf{v}$，那么坐标轴正向与 $\mathsf{v}$ 重合的时候，数值最大，约为 0.5。</p>
+<p>水平放置飞机的时候，机头朝北，数值约为 0.25。所以可以认为，真北朝向 $\mathsf{v}$ 其实是以 45 度射入地面的。</p>
+<h3 id="遥控器">遥控器</h3><p>控制 roll 的为 y 轴，控制 pitch 的为 x 轴。</p>
+<h2 id="MAVROS">MAVROS</h2><p>MAVROS 采用的坐标系遵照 ROS 的约定。</p>
+<h3 id="acc_及_gyro">acc 及 gyro</h3><p>x 轴正向超前，z 轴正向朝天。</p>
+<h3 id="mag">mag</h3><p>磁力计的转换比较奇怪，似乎是 y 轴正向超前，z 轴正向朝天。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="Pixhawk">Pixhawk</h2><p>Pixhawk 上的坐标系均为 NED，即机头朝向为 x 轴正向，z 轴正向朝地。</p>
+<h3 id="加速度计">加速度计</h3><p>加速度计数值体现加速度。当水平静置飞机时，z 轴读数为 -9.8，意思是]]>
+    </summary>
+    
+      <category term="mavros" scheme="http://yoursite.com/tags/mavros/"/>
+    
+      <category term="pixhawk" scheme="http://yoursite.com/categories/pixhawk/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[DigitalOcean 科学上网配置]]></title>
+    <link href="http://yoursite.com/2015/01/12/shadowsocks/"/>
+    <id>http://yoursite.com/2015/01/12/shadowsocks/</id>
+    <published>2015-01-12T12:00:50.000Z</published>
+    <updated>2015-07-26T08:48:30.518Z</updated>
+    <content type="html"><![CDATA[<h2 id="Shadowsocks">Shadowsocks</h2><h3 id="服务器端">服务器端</h3><ul>
+<li>安装</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> python-pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File" target="_blank" rel="external">配置</a></li>
+</ul>
+<p>Create a config file <strong>/etc/shadowsocks.json</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">server</span>":<span class="value"><span class="string">"0.0.0.0"</span></span>,</span><br><span class="line">    "<span class="attribute">server_port</span>":<span class="value"><span class="number">433</span></span>,</span><br><span class="line">    "<span class="attribute">local_address</span>": <span class="value"><span class="string">"127.0.0.1"</span></span>,</span><br><span class="line">    "<span class="attribute">local_port</span>":<span class="value"><span class="number">1080</span></span>,</span><br><span class="line">    "<span class="attribute">password</span>":<span class="value"><span class="string">"mypassword"</span></span>,</span><br><span class="line">    "<span class="attribute">timeout</span>":<span class="value"><span class="number">300</span></span>,</span><br><span class="line">    "<span class="attribute">method</span>":<span class="value"><span class="string">"rc4-md5"</span></span>,</span><br><span class="line">    "<span class="attribute">fast_open</span>": <span class="value"><span class="literal">true</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>开启与关闭</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks<span class="class">.json</span> -d start</span><br><span class="line">ssserver -c /etc/shadowsocks<span class="class">.json</span> -d stop</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://github.com/shadowsocks/shadowsocks/wiki/Optimizing-Shadowsocks" target="_blank" rel="external">优化</a></li>
+</ul>
+<p>事实上，由于国内网络连 DO 主机的速度，根本谈不上优化。。。</p>
+<h3 id="客户端">客户端</h3><ul>
+<li>下载后端</li>
+</ul>
+<p>后端有好几个，选了 <a href="https://github.com/shadowsocks/shadowsocks-libev" target="_blank" rel="external">shadowsocks-libev</a></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install build-essential autoconf libtool libssl-dev</span><br><span class="line">./configure &amp;&amp; <span class="keyword">make</span></span><br><span class="line">sudo <span class="keyword">make</span> install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载前端</li>
+</ul>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="instruction"> add-apt-repository </span>ppa:hzwhuang/ss-qt5</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install shadowsocks-qt5</span><br></pre></td></tr></table></figure>
+<h2 id="PPTP"><a href="http://jerrylee.me/blog/post/DigitalOcean-da-jian-PPTP-xie-yi-VPN" target="_blank" rel="external">PPTP</a></h2><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="built_in">get</span> <span class="keyword">update</span></span><br><span class="line">apt-<span class="built_in">get</span> install pptpd</span><br></pre></td></tr></table></figure>
+<p>注销 <strong>/etc/pptpd.conf</strong> 的下面两行以分配 IP</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">localip</span> 192<span class="class">.168</span><span class="class">.0</span><span class="class">.1</span> </span><br><span class="line"><span class="tag">remoteip</span> 192<span class="class">.168</span><span class="class">.0</span><span class="class">.234-238</span>,192<span class="class">.168</span><span class="class">.0</span><span class="class">.245</span></span><br></pre></td></tr></table></figure>
+<p>编辑 <strong>/etc/ppp/chap-secrets</strong> 添加登录账户（别忘了最后的 * 号）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr_selector">[username]</span> <span class="tag">pptpd</span> <span class="attr_selector">[password]</span> *</span><br></pre></td></tr></table></figure>
+<p>编辑 <strong>/etc/ppp/pptpd-options</strong> 设置 DNS 解析</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># <span class="tag">OpenDNS</span></span><br><span class="line"><span class="tag">ms-dns</span> 208<span class="class">.67</span><span class="class">.222</span><span class="class">.222</span></span><br><span class="line"><span class="tag">ms-dns</span> 208<span class="class">.67</span><span class="class">.220</span><span class="class">.220</span></span><br><span class="line"># <span class="tag">google</span> <span class="tag">DNS</span></span><br><span class="line"><span class="tag">ms-dns</span> 8<span class="class">.8</span><span class="class">.8</span><span class="class">.8</span></span><br><span class="line"><span class="tag">ms-dns</span> 8<span class="class">.8</span><span class="class">.4</span><span class="class">.4</span></span><br></pre></td></tr></table></figure>
+<p>配置 <strong>/etc/sysctl.conf</strong> 以允许转发</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net<span class="class">.ipv4</span><span class="class">.ip_forward</span>=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>重启服务<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl -<span class="tag">p</span></span><br><span class="line">/etc/init.d/pptpd restart</span><br></pre></td></tr></table></figure></p>
+<p>配置防火墙 iptables</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sbin/iptables -t nat -<span class="keyword">A</span> POSTROUTING -s <span class="number">192.168.0.0</span>/24 -o eth0 -j MASQUERADE</span><br></pre></td></tr></table></figure>
+<p>保存并配置重启后的 iptables</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules</span><br></pre></td></tr></table></figure>
+<p>修改 <strong>/etc/network/interfaces</strong>，在 eth0 下添加：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pre</span>-<span class="keyword">up</span> iptables-restore &lt; /etc/iptables-rules</span><br></pre></td></tr></table></figure></p>
+<p>最后清理 nash-hotplug，修改 <strong>/etc/rc.local</strong> 文件，在 <code>exit 0</code> 之前添加此命令： <code>pkill -9 nash</code></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="Shadowsocks">Shadowsocks</h2><h3 id="服务器端">服务器端</h3><ul>
+<li>安装</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gut]]>
+    </summary>
+    
+      <category term="pptp" scheme="http://yoursite.com/tags/pptp/"/>
+    
+      <category term="shadowsocks" scheme="http://yoursite.com/tags/shadowsocks/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[配置 Pixhawk 带的无线串口]]></title>
+    <link href="http://yoursite.com/2015/01/06/3dr-radio/"/>
+    <id>http://yoursite.com/2015/01/06/3dr-radio/</id>
+    <published>2015-01-06T03:48:17.000Z</published>
+    <updated>2015-07-26T08:48:30.511Z</updated>
+    <content type="html"><![CDATA[<p>配置无线串口可以提高发射功率、波特率，改变网段避免冲突，官方有<a href="https://pixhawk.org/peripherals/radio-modems/start" target="_blank" rel="external">指导</a>。</p>
+<h3 id="安装依赖_SDCC">安装依赖 SDCC</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install sdcc</span><br></pre></td></tr></table></figure>
+<h3 id="编译固件">编译固件</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/tridge/SiK.git</span><br><span class="line"><span class="keyword">cd</span> SiK/Firmware</span><br><span class="line"><span class="keyword">make</span> install</span><br></pre></td></tr></table></figure>
+<h3 id="上传">上传</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tools<span class="regexp">/uploader.py --port /</span>dev<span class="regexp">/ttyUSB* dst/</span>radio~hm_trp.ihx</span><br></pre></td></tr></table></figure>
+<h3 id="配置">配置</h3><p>默认波特率为 57600，通过 <code>screen</code> 连接</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen /dev/ttyUSB* <span class="number">57600 8N1</span></span><br></pre></td></tr></table></figure>
+<p>几个常用 AT 命令如下：</p>
+<ul>
+<li><code>+++</code> 进入 AT 模式</li>
+<li><code>ATI5</code> 罗列选项</li>
+<li><code>AT&amp;W</code> 保存配置</li>
+<li><code>ATZ</code> 重启模块</li>
+</ul>
+<p>3DR 官方也有提供 <a href="http://vps.oborne.me/3drradioconfig.zip" target="_blank" rel="external">windows 下的配置软件</a>，强烈推荐使用，因为有中文，每项选项都有详细的解释，有助迅速理解。</p>
+<h3 id="一些概念">一些概念</h3><ul>
+<li><p>无线串口推荐连接到 Pixhawk 的 TELEM1 口。 TELEM2 及 Serial4/5 也可以用，不过不建议。</p>
+</li>
+<li><p>当传送的数据里包括 <code>MAVLINK_HEARTBEAT</code> 信息时， 无线串口固件会偷偷地发送一个叫 <code>MAVLINK_RADIO</code> 的包。</p>
+</li>
+<li><p><code>MAVLINK_RADIO</code> 包包含 RSSI，错误率以及串口 buffer 的容量！！！APM 固件针对这个包的数据，会调整发包速率，<a href="http://copter.ardupilot.com/wiki/common-using-the-3dr-radio-for-telemetry-with-apm-and-px4/" target="_blank" rel="external">避免串口发不过来</a>。</p>
+</li>
+<li><p>无线串口固件会尝试把几个包合成一个包进行发送，这个合成包的最大 size 为 252 字节。</p>
+</li>
+<li><p>按照教程的说法，串口会保证在 <strong>MAX_WINDOW</strong> 的时间内发送一次，减小 <strong>MAX_WINDOW</strong> 会缩小带宽。所以应该是这样理解： <strong>MAX_WINDOW</strong> 没到，串口会收集数据包，到了以后一次全发送出去; 提高发送频率，会导致每次发送的数据包数量变少，减少的数量大于频率提高增加的数量，所以带宽就小了。</p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>配置无线串口可以提高发射功率、波特率，改变网段避免冲突，官方有<a href="https://pixhawk.org/peripherals/radio-modems/start" target="_blank" rel="external">指导</a>。</p>
+<h]]>
+    </summary>
+    
+      <category term="radio" scheme="http://yoursite.com/tags/radio/"/>
+    
+      <category term="pixhawk" scheme="http://yoursite.com/categories/pixhawk/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Jetson TK1 介绍与配置]]></title>
+    <link href="http://yoursite.com/2014/12/20/jetsontk1/"/>
+    <id>http://yoursite.com/2014/12/20/jetsontk1/</id>
+    <published>2014-12-20T05:40:22.000Z</published>
+    <updated>2015-07-26T08:48:30.514Z</updated>
+    <content type="html"><![CDATA[<h2 id="烧系统">烧系统</h2><h3 id="手动方法">手动方法</h3><p>参考<a href="http://developer.download.nvidia.com/mobile/tegra/l4t/r21.1.0/l4t_quick_start_guide.txt" target="_blank" rel="external">官方指南</a>，并且优先选择 <a href="https://devtalk.nvidia.com/default/topic/795734/embedded-systems/-customkernel-the-grinch-21-2-1-for-jetson-tk1/1/" target="_blank" rel="external"><strong>Grinch Kernel</strong></a>，因为带了很多驱动。</p>
+<blockquote>
+<p>21.2 版本的网络驱动有问题， Grinch Kernel 页面有介绍怎么搞，但是不是最优方案，复杂的解决方案看<a href="https://devtalk.nvidia.com/default/topic/799075/embedded-systems/jetson-tk1-r8169-netdev-watchdog-timeout-solved-/" target="_blank" rel="external">这里</a>。</p>
+</blockquote>
+<p>注意在烧写的那一步，为了用完板子的 16G 空间，用以下命令：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./flash<span class="class">.sh</span> -S <span class="number">14580</span>MiB jetson-tk1 mmcblk0p1</span><br></pre></td></tr></table></figure>
+<h3 id="利用官方_JetPack_工具">利用官方 JetPack 工具</h3><p>官方 JetPack 会自动下载内核、文件系统、cv4Tegra、CUDA 以及一些测评工具，一步步配置并在最后推送到板子上，比较简单。</p>
+<p>缺点是看不出来怎么复用原来做好的系统，似乎每烧一块版都要解压一次文件系统并配置。而且这个工具比较新，非常不稳定。</p>
+<h2 id="配置">配置</h2><p>优先参考<a href="http://elinux.org/Jetson_TK1" target="_blank" rel="external">elinux wiki</a>，然后</p>
+<ul>
+<li><p>添加 <a href="http://mirrors.mit.edu/" target="_blank" rel="external">MIT 的源</a></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-security main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-updates main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-proposed main restricted universe multiverse</span></span><br><span class="line">deb <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-backports main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-security main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-updates main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-proposed main restricted universe multiverse</span></span><br><span class="line">deb-src <span class="string">http:</span><span class="comment">//mirrors.mit.edu/ubuntu-port/ trusty-backports main restricted universe multiverse</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用 <a href="https://github.com/ilikenwf/apt-fast" target="_blank" rel="external"><strong>apt-fast</strong></a> 加速升级</p>
+</li>
+</ul>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="instruction"> add-apt-repository </span>ppa:saiarcot895/myppa</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-fast</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"alias apt-get='apt-fast'"</span> &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>自动补全</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">add</span>-repository universe</span><br><span class="line">$ sudo apt-<span class="built_in">get</span> update</span><br><span class="line">$ sudo apt-<span class="built_in">get</span> install bash-completion <span class="command"><span class="keyword">command</span>-not-found</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 <code>x11vnc</code></p>
+</li>
+<li><p>调时区并更新时间</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo dpkg-reconfigure tzdata</span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>sudo service ntp stop</span><br><span class="line"><span class="variable">$ </span>sudo ntpdate pool.ntp.org</span><br><span class="line"><span class="variable">$ </span>sudo service ntp start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载不必要的东西</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="preprocessor">get</span> remove aisleriot gnome-mines gnome-sudoku gnome-mahjongg</span><br><span class="line">$ sudo apt-<span class="preprocessor">get</span> remove deja-dup unity-lens-photos unity-lens-video unity-lens-friends unity-lens-video unity-lens-music unity-webapps-<span class="preprocessor">common</span> unity-scope-audacious rhythmbox totem</span><br><span class="line">$ sudo apt-<span class="preprocessor">get</span> remove simple-scan empathy transmission-<span class="preprocessor">common</span> transmission-gtk <span class="keyword">brasero</span><br><span class="line"></span>$ sudo apt-<span class="preprocessor">get</span> autoremove</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>完善语言安装</p>
+</li>
+<li><p>安装编译环境</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="preprocessor">get</span> install <span class="keyword">build-essentials</span><br><span class="line"></span>$ sudo apt-<span class="preprocessor">get</span> install libncurses5-dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加用户组</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -<span class="tag">a</span> -G <span class="tag">video</span> <span class="variable">$USER</span></span><br><span class="line">$ sudo usermod -<span class="tag">a</span> -G dialout <span class="variable">$USER</span></span><br><span class="line">$ sudo usermod -<span class="tag">a</span> -G plugdev <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="http://developer.download.nvidia.com/embedded/OpenCV/L4T_21.1/README.txt" target="_blank" rel="external">安装 <code>cuda</code> 及 <code>opencv4tegra</code></a></p>
+</li>
+</ul>
+<p>还需要到 <a href="http://elinux.org/Jetson/Installing_CUDA" target="_blank" rel="external"><code>cuda</code> 安装页面</a> 看看怎么添加路径。</p>
+<p>卸载方式也需要参考以上地址。</p>
+<ul>
+<li><strong>ssh</strong> 免密码登录</li>
+</ul>
+<p>修改 <strong>.ssh/authorized_keys</strong> 添加内容，内容来自主机的 <strong>.ssh/id_rsa.pub</strong></p>
+<h2 id="系统调优">系统调优</h2><ul>
+<li><p>cpu 频率<br>check <code>/var/log/boot.log</code> for booting messages and use <code>dmesg</code> to show kernel messages</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat <span class="regexp">/sys/</span>devices<span class="regexp">/system/</span>cpu<span class="regexp">/cpu0/</span>cpufreq<span class="regexp">/scaling_governor</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>disable <code>ondemand</code></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="keyword">update</span>-rc.<span class="keyword">d</span> ondemand disable</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>install <code>cpufrequtils</code></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo gedit /etc/init.d/cpufrequtils</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="增加_swapfile">增加 swapfile</h3><p>ROS 里常常有一些包，需要很大的编译空间。TK1 默认的 2G 内存完全不够，需要<a href="http://jetsonhacks.com/2014/10/04/creating-swapfile-ubuntu-nvidia-jetson-tk1/" target="_blank" rel="external">手动添加 swap</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="comment">#NVIDIA Jetson TK1</span></span><br><span class="line"><span class="comment">#Create a swapfile for Ubuntu at the current directory location</span></span><br><span class="line">fallocate <span class="operator">-l</span> <span class="number">4</span>G swapfile</span><br><span class="line"><span class="comment">#List out the file</span></span><br><span class="line">ls -lh swapfile</span><br><span class="line"><span class="comment"># Change permissions so that only root can use it</span></span><br><span class="line">chmod <span class="number">600</span> swapfile</span><br><span class="line"><span class="comment">#List out the file</span></span><br><span class="line">ls -lh swapfile</span><br><span class="line"><span class="comment">#Set up the Linux swap area</span></span><br><span class="line">mkswap swapfile</span><br><span class="line"><span class="comment">#Now start using the swapfile</span></span><br><span class="line">swapon swapfile</span><br><span class="line"><span class="comment">#Show that it's now being used</span></span><br><span class="line">swapon <span class="operator">-s</span></span><br></pre></td></tr></table></figure>
+<p>以上脚本会在执行的地方搞出一个 4G 的 swap 空间，执行完以后，系统空间就少了 4G。</p>
+<p>开机自动挂载这个空间，需要修改 fstab。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo gedit /etc/fstab</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/media/swapfile <span class="keyword">none</span> <span class="built_in">swap</span> sw <span class="number">0</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>如果想要重新调整 swap 大小，切换到 swap 所在的目录，然后</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>swapfile <span class="variable">bs=</span><span class="number">1</span>M <span class="variable">count=</span><span class="number">2048</span> <span class="comment"># 调成 2G</span></span><br><span class="line">chmod <span class="number">600</span> /swapfile <span class="comment"># only root has permission</span></span><br><span class="line">mkswap /swapfile <span class="comment"># format it to swap</span></span><br><span class="line">swapon /swapfile <span class="comment"># activate</span></span><br></pre></td></tr></table></figure>
+<h2 id="编译内核">编译内核</h2><h3 id="在_host_机上编译内核">在 host 机上编译内核</h3><p><a href="http://www.e-consystems.com/USB-3-Camera-on-JetsonTK1-kit.asp" target="_blank" rel="external">e-con</a> 公司有一页教程，很详细地讲了怎么在 host 机上编译内核、开启 USB3.0， fastboot 与 uboot 的不同配置之类的问题，很值得一看。</p>
+<h3 id="串口驱动"><a href="http://elinux.org/Jetson/Tutorials/Program_An_Arduino" target="_blank" rel="external">串口驱动</a></h3><p>一个串口设备接上的时候，可以通过 <code>lsusb</code> 查看设备使用的芯片，比如说这样子</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ubuntu<span class="annotation">@tegra</span>-ubuntu:~$ lsusb</span><br><span class="line">Bus 002 Device 006: ID 0403:6001 Future Technology Devices International, Ltd FT232 USB-Serial (UART) IC</span><br></pre></td></tr></table></figure>
+<p>可是 TK1 的内核默认没有开启支持</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@tegra-ubuntu:~$ zcat /<span class="keyword">proc</span>/config.gz | grep <span class="type">FTDI</span></span><br><span class="line"><span class="comment"># CONFIG_USB_SERIAL_FTDI_SIO is not set</span></span><br><span class="line"><span class="comment"># CONFIG_USB_FTDI_ELAN is not set</span></span><br></pre></td></tr></table></figure>
+<p>解决方案：</p>
+<ul>
+<li><p>下载内核源代码，假设解压到 <strong>~/kernel</strong> 文件夹</p>
+</li>
+<li><p>将当前内核配置复制到源码文件夹里</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zcat /<span class="keyword">proc</span>/config.gz &gt; ~/kernel/.config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动 <code>menuconfig</code> 工具配置内核</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">sudo</span> apt-<span class="preprocessor">get</span> install ncurses-<span class="keyword">bin </span>libncurses5-dev</span><br><span class="line"><span class="label">make</span> menuconfig</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入 <code>Device Drivers -&gt; USB Support -&gt; USB Serial Converter Support</code>，将 <code>USB FTDI Single Port Serial Driver</code> 标记为 <strong>M</strong>，保存并退出</p>
+</li>
+<li><p>确认驱动已设置为模块编译</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ubuntu<span class="annotation">@tegra</span>-ubuntu:~/kernel$ cat .config | grep FTDI</span><br><span class="line">CONFIG_USB_SERIAL_FTDI_SIO=m</span><br><span class="line"># CONFIG_USB_FTDI_ELAN <span class="keyword">is</span> not <span class="literal">set</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译内核（只针对串口驱动部分）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">make <span class="operator"><span class="keyword">prepare</span></span><br><span class="line">make modules_prepare</span><br><span class="line"></span><br><span class="line">make M=drivers/usb/<span class="built_in">serial</span>/</span><br><span class="line">  Building modules, stage <span class="number">2.</span></span><br><span class="line">  MODPOST <span class="number">2</span> modules</span><br><span class="line">  CC      drivers/usb/<span class="built_in">serial</span>/baseband_usb_chr.<span class="keyword">mod</span>.o</span><br><span class="line">  LD [M]  drivers/usb/<span class="built_in">serial</span>/baseband_usb_chr.ko</span><br><span class="line">  CC      drivers/usb/<span class="built_in">serial</span>/ftdi_sio.<span class="keyword">mod</span>.o</span><br><span class="line">  LD [M]  drivers/usb/<span class="built_in">serial</span>/ftdi_sio.ko</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装编译好的模块</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo cp drivers<span class="regexp">/usb/</span>serial<span class="regexp">/ftdi_sio.ko /</span>lib<span class="regexp">/modules/</span>$(uname -r)/kernel</span><br><span class="line">sudo depmod -a</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>这块可能有问题，因为貌似每次都要 <code>insmod ftdi_sio.ko</code> 才能用</p>
+</blockquote>
+<ul>
+<li>确认驱动正确安装</li>
+</ul>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="atom">ubuntu</span>@<span class="atom">tegra</span>-<span class="atom">ubuntu</span>:~/<span class="atom">kernel</span>$ <span class="atom">dmesg</span> | <span class="atom">grep</span> <span class="atom">usb</span></span><br><span class="line">[   <span class="number">57.385970</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="atom">new</span> <span class="atom">full</span>-<span class="atom">speed</span> <span class="name">USB</span> <span class="atom">device</span> <span class="atom">number</span> <span class="number">5</span> <span class="atom">using</span> <span class="atom">tegra</span>-<span class="atom">ehci</span></span><br><span class="line">[   <span class="number">57.407931</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">New</span> <span class="name">USB</span> <span class="atom">device</span> <span class="atom">found</span>, <span class="atom">idVendor</span>=<span class="number">0403</span>, <span class="atom">idProduct</span>=<span class="number">6001</span></span><br><span class="line">[   <span class="number">57.407950</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">New</span> <span class="name">USB</span> <span class="atom">device</span> <span class="atom">strings</span>: <span class="name">Mfr</span>=<span class="number">1</span>, <span class="name">Product</span>=<span class="number">2</span>, <span class="name">SerialNumber</span>=<span class="number">3</span></span><br><span class="line">[   <span class="number">57.407964</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Product</span>: <span class="name">FT232R</span> <span class="name">USB</span> <span class="name">UART</span></span><br><span class="line">[   <span class="number">57.407976</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Manufacturer</span>: <span class="name">FTDI</span></span><br><span class="line">[   <span class="number">57.407987</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">SerialNumber</span>: <span class="name">A601NG2B</span></span><br><span class="line">[   <span class="number">57.479238</span>] <span class="atom">ftdi_sio</span>: <span class="atom">version</span> <span class="atom">magic</span> <span class="string">'3.10.24 SMP preempt mod_unload ARMv7 p2v8 '</span> <span class="atom">should</span> <span class="atom">be</span> <span class="string">'3.10.24-gf455cd4 SMP preempt mod_unload ARMv7 p2v8 '</span></span><br><span class="line">[   <span class="number">57.504885</span>] <span class="atom">usbcore</span>: <span class="atom">registered</span> <span class="atom">new</span> <span class="atom">interface</span> <span class="atom">driver</span> <span class="atom">ftdi_sio</span></span><br><span class="line">[   <span class="number">57.507384</span>] <span class="atom">usbserial</span>: <span class="name">USB</span> <span class="name">Serial</span> <span class="atom">support</span> <span class="atom">registered</span> <span class="atom">for</span> <span class="name">FTDI</span> <span class="name">USB</span> <span class="name">Serial</span> <span class="name">Device</span></span><br><span class="line">[   <span class="number">57.508073</span>] <span class="atom">ftdi_sio</span> <span class="number">2</span>-<span class="number">1.5</span>:<span class="number">1.0</span>: <span class="name">FTDI</span> <span class="name">USB</span> <span class="name">Serial</span> <span class="name">Device</span> <span class="atom">converter</span> <span class="atom">detected</span></span><br><span class="line">[   <span class="number">57.508917</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Detected</span> <span class="name">FT232RL</span></span><br><span class="line">[   <span class="number">57.508934</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Number</span> <span class="atom">of</span> <span class="atom">endpoints</span> <span class="number">2</span></span><br><span class="line">[   <span class="number">57.508948</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Endpoint</span> <span class="number">1</span> <span class="name">MaxPacketSize</span> <span class="number">64</span></span><br><span class="line">[   <span class="number">57.508960</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Endpoint</span> <span class="number">2</span> <span class="name">MaxPacketSize</span> <span class="number">64</span></span><br><span class="line">[   <span class="number">57.508971</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Setting</span> <span class="name">MaxPacketSize</span> <span class="number">64</span></span><br><span class="line">[   <span class="number">57.511143</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">FTDI</span> <span class="name">USB</span> <span class="name">Serial</span> <span class="name">Device</span> <span class="atom">converter</span> <span class="atom">now</span> <span class="atom">attached</span> <span class="atom">to</span> <span class="atom">ttyUSB0</span></span><br></pre></td></tr></table></figure>
+<h3 id="挂载_USB_技巧">挂载 USB 技巧</h3><p>USB 挂载以后的序列号经常变，比如说原来是 <strong>/dev/ttyUSB0</strong>，下一次可能是 <strong>/dev/ttyUSB1</strong>，所以可以考虑用设备号挂载，比如说 <strong>/dev/serial/by-id/FTDI_XXX</strong>。</p>
+<h2 id="ROS">ROS</h2><p>ROS Wiki 上有针对 TK1 的<a href="http://wiki.ros.org/NvidiaJetsonTK1" target="_blank" rel="external">页面</a>，目前还不完善，可以跟踪。</p>
+<h3 id="安装_OpenCV">安装 OpenCV</h3><p><a href="https://devtalk.nvidia.com/default/topic/790032/embedded-systems/opencv4tegra-for-l4t-has-problem/" target="_blank" rel="external">Till Nov.24th, <code>OpenCV4Tegra</code> is totally a piece of shit</a>. </p>
+<ul>
+<li>deb install <code>cv-bridge</code><br><a href="https://devtalk.nvidia.com/default/topic/779315/embedded-systems/jetson-tk1-opencv-and-ros/" target="_blank" rel="external"><code>ros-indigo-cv-bridge</code></a></li>
+<li>modified line 112 of <code>/opt/ros/indigo/share/cv_bridge/cv_bridgeConfig.cmake</code></li>
+</ul>
+<ol>
+<li>since <code>cv4tegra</code> does not contain <code>libopencv_ocl</code></li>
+<li>the default route of <code>cv4tegra</code> is not armhf<em>*</em></li>
+</ol>
+<h4 id="workaround">workaround</h4><h2 id="IMU">IMU</h2><ul>
+<li><a href="https://github.com/KumarRobotics/imu_3dm_gx4" target="_blank" rel="external">https://github.com/KumarRobotics/imu_3dm_gx4</a></li>
+<li>install <code>rqt_runtime_monitor</code></li>
+<li>there are two way to communicate with the imu</li>
+</ul>
+<h2 id="some_more_usefully_tricks">some more usefully tricks</h2><ul>
+<li><p>show the content of a pkg</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ dpkg -L <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>hold a pkg</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-mark hold/unhold <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>download a deb</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get download <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>install a pkg no matter how</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg --force-all -i <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="烧系统">烧系统</h2><h3 id="手动方法">手动方法</h3><p>参考<a href="http://developer.download.nvidia.com/mobile/tegra/l4t/r21.1.0/l4t_quick_start_guid]]>
+    </summary>
+    
+      <category term="jetson tk1" scheme="http://yoursite.com/tags/jetson-tk1/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ROS 使用技巧]]></title>
+    <link href="http://yoursite.com/2014/12/17/ros-trick/"/>
+    <id>http://yoursite.com/2014/12/17/ros-trick/</id>
+    <published>2014-12-17T08:53:13.000Z</published>
+    <updated>2015-07-26T08:48:30.518Z</updated>
+    <content type="html"><![CDATA[<h2 id="源码安装_pkg">源码安装 pkg</h2><h3 id="wstool">wstool</h3><p>一个例子：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ wstool init src (<span class="keyword">if</span> <span class="keyword">not</span> already initialized)</span><br><span class="line">$ wstool <span class="keyword">set</span> -t src mavros <span class="comment">--git https://github.com/mavlink/mavros.git</span></span><br><span class="line">$ wstool update -t src</span><br><span class="line">$ rosdep install <span class="comment">--from-paths src --ignore-src --rosdistro indigo -y</span></span><br></pre></td></tr></table></figure>
+<p>最后一条会安装依赖。</p>
+<h3 id="rosinstall">rosinstall</h3><p>似乎有这样一个工具 <a href="https://github.com/mavlink/mavros/blob/master/mavros/README.md" target="_blank" rel="external">ros-install-generator</a>，专门根据包名，去数据库里找包的源码仓库信息</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> install <span class="keyword">python</span>-rosinstall-generator</span><br></pre></td></tr></table></figure>
+<p>结合 <code>tee</code>，就可以生成一个用于安装的 yaml 文档，比如说想从上游安装 mavlink，可以这样</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosinstall_generator mavlink <span class="string">| tee rosinstall.yaml</span></span><br></pre></td></tr></table></figure>
+<p>再这么做，就安装好了</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>wstool init &lt;pkg_path&gt; ./rosinstall.yaml</span><br><span class="line"><span class="variable">$ </span>catkin_make_isolated --install-space <span class="variable">$ROSINSTALL</span> --install -<span class="constant">DCMAKE_BUILD_TYPE=Release</span></span><br></pre></td></tr></table></figure>
+<p>其中，<code>$ROSINSTALL</code> 需要自己配置好，如果 <code>$ROSINSTALL</code> 是一个需要权限的路径，比如说 <em>/opt/ros/$ROS_DISTRO</em>，最后一条命令加 <code>sudo s</code>。</p>
+<h2 id="catkin_make">catkin_make</h2><p><code>catkin_make</code> 可以有 GUI 方式查看编译选项</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>catkin_make edit_cache</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> install cmake-qt-<span class="keyword">gui</span></span><br><span class="line">$ cmake-<span class="keyword">gui</span> build</span><br></pre></td></tr></table></figure>
+<h3 id="手动添加第三方库">手动添加第三方库</h3><p>有<a href="http://answers.ros.org/question/189223/how-can-i-reference-an-external-project-with-catkin/?answer=189297#post-id-189297" target="_blank" rel="external">两种方式</a></p>
+<ol>
+<li>将自己的程序做成库，用 PkgConfig 提供的宏自动找，这种方式需要<a href="http://people.freedesktop.org/~dbn/pkg-config-guide.html" target="_blank" rel="external">自己写 pkg-config 文档</a></li>
+<li>自己写 cmake 文档</li>
+</ol>
+<h3 id="显式指定编译器"><a href="http://www.guyrutenberg.com/2014/01/05/enabling-c11-c0x-in-cmake/" target="_blank" rel="external">显式指定编译器</a></h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">include</span><span class="params">(CheckCXXCompilerFlag)</span></span></span><br><span class="line"><span class="function"><span class="title">CHECK_CXX_COMPILER_FLAG</span><span class="params">(<span class="string">"-std=c++11"</span> COMPILER_SUPPORTS_CXX11)</span></span></span><br><span class="line"><span class="function"><span class="title">CHECK_CXX_COMPILER_FLAG</span><span class="params">(<span class="string">"-std=c++0x"</span> COMPILER_SUPPORTS_CXX0X)</span></span></span><br><span class="line"><span class="function"><span class="title">if</span><span class="params">(COMPILER_SUPPORTS_CXX11)</span></span></span><br><span class="line">	<span class="function"><span class="title">set</span><span class="params">(CMAKE_CXX_FLAGS <span class="string">"$&#123;CMAKE_CXX_FLAGS&#125; -std=c++11"</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">elseif</span><span class="params">(COMPILER_SUPPORTS_CXX0X)</span></span></span><br><span class="line">	<span class="function"><span class="title">set</span><span class="params">(CMAKE_CXX_FLAGS <span class="string">"$&#123;CMAKE_CXX_FLAGS&#125; -std=c++0x"</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">else</span><span class="params">()</span></span></span><br><span class="line">        <span class="function"><span class="title">message</span><span class="params">(STATUS <span class="string">"The compiler $&#123;CMAKE_CXX_COMPILER&#125; has no C++11 support. Please use a different C++ compiler."</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">endif</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="rqt_plot">rqt_plot</h2><h3 id="同时显示多个话题">同时显示多个话题</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ rqt_plot <span class="regexp">/turtle1/</span>pose/<span class="string">x:</span><span class="string">y:</span>z</span><br><span class="line">$ rqt_plot <span class="regexp">/turtle1/</span>pose<span class="regexp">/x /</span>turtle1<span class="regexp">/pose/</span>y <span class="regexp">/turtle1/</span>pose/z</span><br></pre></td></tr></table></figure>
+<h3 id="后端">后端</h3><p>rqt_plot 可以使用不同后端， <code>matplotlib</code> 及 <code>qwt</code> 慢或者支持不完善，推荐用 <code>pyqtgraph</code>。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>wget <span class="symbol">https:</span>/<span class="regexp">/bootstrap.pypa.io/ez</span>_setup.py -<span class="constant">O </span>- | sudo python</span><br><span class="line"><span class="variable">$ </span>sudo easy_install pyqtgraph</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="源码安装_pkg">源码安装 pkg</h2><h3 id="wstool">wstool</h3><p>一个例子：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><]]>
+    </summary>
+    
+      <category term="ros" scheme="http://yoursite.com/tags/ros/"/>
+    
+      <category term="ros" scheme="http://yoursite.com/categories/ros/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Mavros 使用指南]]></title>
+    <link href="http://yoursite.com/2014/12/17/mavros/"/>
+    <id>http://yoursite.com/2014/12/17/mavros/</id>
+    <published>2014-12-17T03:45:43.000Z</published>
+    <updated>2015-07-26T08:48:30.514Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>mavros 之前有一个老的版本，叫 <a href="https://github.com/mavlink/mavlink_ros" target="_blank" rel="external">mavlink_ros</a>，比较简单，可以用来上手。</p>
+</blockquote>
+<h2 id="安装">安装</h2><p><a href="https://github.com/mavlink/mavros/blob/master/mavros/README.md" target="_blank" rel="external">官方网站</a>有详细的介绍，强烈建议做之前看一看有没有更新。</p>
+<h3 id="土法安装">土法安装</h3><p>从源里面安装 mavlink，这个子不方便自己加 mavlink 消息，不推荐</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="keyword">get</span> install ros-indigo-mavlink</span><br></pre></td></tr></table></figure>
+<p>然后同步 mavros 并编译<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wstool <span class="keyword">set</span> mavros_pkg --git http<span class="variable">s:</span>//github.<span class="keyword">com</span>/mavlink/mavros.git</span><br><span class="line">$ wstool <span class="keyword">update</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>注意</strong>： 编译的时候需要指定 mavlink 针对的平台。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>catkin_make -<span class="constant">DMAVLINK_DIALECT=</span>pixhawk</span><br></pre></td></tr></table></figure>
+<h3 id="高大上安装">高大上安装</h3><p>先安装 mavlink</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mkdir</span> -p ~/ros_deps/src</span><br><span class="line"><span class="keyword">cd</span> ~/ros_deps</span><br><span class="line">rosinstall_generator mavlink | tee rosinstall.yaml</span><br><span class="line">wstool init src ./rosinstall.yaml</span><br><span class="line">catkin_make_isolated --install-space <span class="label">$ROSINSTALL</span> --install -DCMAKE_BUILD_TYPE=Release</span><br></pre></td></tr></table></figure>
+<p>其中，<code>$ROSINSTALL</code> 可以指定为 <strong>~/catkin_ws/install</strong></p>
+<p>接下来和上面一样装 mavros 就好了。</p>
+<h2 id="使用">使用</h2><h3 id="添加_custom_message">添加 custom message</h3><p>添加 custom message 的时候推荐加到 <strong>pixhawk.xml</strong></p>
+<h2 id="参考">参考</h2><h3 id="tum_ardrone"><a href="https://github.com/tum-vision/tum_ardrone/tree/indigo-devel" target="_blank" rel="external">tum_ardrone</a></h3><p><strong>tum_ardrone</strong> 里面包含一个针对 ARDrone 的，结合视觉的状态估计器，一个控制器及一个 GUI。状态估计器及 GUI 暂时用不上，不过控制器可以参考一下。</p>
+<h3 id="astec_mav_framework"><a href="http://wiki.ros.org/asctec_mav_framework" target="_blank" rel="external">astec_mav_framework</a></h3><p>里面有个 pelicon 的 urdf。</p>
+<h3 id="Python_通信">Python 通信</h3><p>Google Group 里有人发过一个 <a href="https://groups.google.com/forum/#!topic/pixhawk/HCjVm4sfEVI" target="_blank" rel="external">Python 的例子</a>。</p>
+<h2 id="vicon"><a href="https://github.com/kartikmohta/vicon" target="_blank" rel="external">vicon</a></h2><p>手动安装依赖</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> install libeigen3-<span class="built_in">dev</span> libyaml-cpp-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>mavros 之前有一个老的版本，叫 <a href="https://github.com/mavlink/mavlink_ros" target="_blank" rel="external">mavlink_ros</a>，比较简单，可以用来]]>
+    </summary>
+    
+      <category term="mavlink" scheme="http://yoursite.com/tags/mavlink/"/>
+    
+      <category term="pixhawk" scheme="http://yoursite.com/tags/pixhawk/"/>
+    
+      <category term="ros" scheme="http://yoursite.com/tags/ros/"/>
+    
+      <category term="ros" scheme="http://yoursite.com/categories/ros/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[QGroundControl]]></title>
+    <link href="http://yoursite.com/2014/12/17/qgroundcontrol/"/>
+    <id>http://yoursite.com/2014/12/17/qgroundcontrol/</id>
+    <published>2014-12-17T03:05:10.000Z</published>
+    <updated>2015-07-26T08:48:30.518Z</updated>
+    <content type="html"><![CDATA[<h2 id="依赖安装">依赖安装</h2><h3 id="Qt5-4">Qt5.4</h3><p>自从某个版本以后，编译 QGroundControl 要求 Qt5.4，Ubuntu 14.04 需要自行<a href="https://launchpad.net/~beineri/+archive/ubuntu/opt-qt54-trusty" target="_blank" rel="external">添加 ppa</a>。</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo<span class="instruction"> add-apt-repository </span>ppa:beineri/opt-qt541-trusty</span><br><span class="line">$ sudo apt-get install qt54tools qt54base qt54declarative qt54serialport qt54svg qt54webkit qt54quickcontrols qt54xmlpatterns qt54x11extras qt54websockets qt54sensors qt54script qt54quick1 qt54qbs qt54multimedia qt54location qt54imageformats qt54graphicaleffects qt54creator qt54connectivity</span><br></pre></td></tr></table></figure>
+<p>ppa 安装的 QT 位于 <em>/opt/qt54</em>，需要手动在 <strong>.bashrc</strong> 里添加来屏蔽系统 qt</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## qt <span class="number">5.4</span></span><br><span class="line"><span class="keyword">source</span> <span class="regexp">/opt/</span>qt54<span class="regexp">/bin/</span>qt54-env.sh</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>貌似加在 <code>~/.profile</code> 会更好，登录就启用</p>
+</blockquote>
+<h3 id="SDL1-2">SDL1.2</h3><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> install qtcreator qttools5-<span class="built_in">dev</span> qtbase5-<span class="built_in">dev</span> qt5-default qtdeclarative5-<span class="built_in">dev</span> libqt5serialport5-<span class="built_in">dev</span> libqt5svg5-<span class="built_in">dev</span> libqt5webkit5-<span class="built_in">dev</span> libsdl1.2-<span class="built_in">dev</span> build-essential libudev-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
+<h2 id="定制编译">定制编译</h2><p>需要设置的编译选项可以创建并写在 <strong><em>user_config.pri</em></strong> 文件里，比如说关闭 <strong>qupgrade</strong>，设置 mavlink dialect 之类的。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="setting">DEFINES=<span class="value"><span class="string">"DISABLE_QUPGRADE DISABLE_3DMOUSE"</span></span></span></span><br><span class="line"><span class="setting">MAVLINK_CONF=<span class="value"><span class="string">"pixhawk"</span></span></span></span><br></pre></td></tr></table></figure>
+<h3 id="额外功能">额外功能</h3><p>额外功能包括语音提示，3D flight view 之类的东西，参考官方指示安装</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> install espeak libespeak-<span class="built_in">dev</span> libopenscenegraph-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
+<h4 id="XBee">XBee</h4><p>QGroundcontrol 内部包含了一个 xbee 的库，可以这样安装</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>cd libs/thirdParty/libxbee</span><br><span class="line"><span class="variable">$ </span>make</span><br><span class="line"><span class="variable">$ </span>sudo make install</span><br></pre></td></tr></table></figure>
+<h3 id="编译">编译</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>qmake</span><br><span class="line"><span class="variable">$ </span>make</span><br></pre></td></tr></table></figure>
+<p>qmake 似乎执行一种 incremental build 的策略，据说不是很可靠，所以必要的时候需要先删除 <strong><em>build_release</em></strong>。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="依赖安装">依赖安装</h2><h3 id="Qt5-4">Qt5.4</h3><p>自从某个版本以后，编译 QGroundControl 要求 Qt5.4，Ubuntu 14.04 需要自行<a href="https://launchpad.net/~bein]]>
+    </summary>
+    
+      <category term="pixhawk" scheme="http://yoursite.com/tags/pixhawk/"/>
+    
+      <category term="qgroundcontrol" scheme="http://yoursite.com/tags/qgroundcontrol/"/>
+    
+      <category term="pixhawk" scheme="http://yoursite.com/categories/pixhawk/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Pixhawk 遥控信号处理]]></title>
+    <link href="http://yoursite.com/2014/12/12/pixhawk-rc/"/>
+    <id>http://yoursite.com/2014/12/12/pixhawk-rc/</id>
+    <published>2014-12-12T14:05:29.000Z</published>
+    <updated>2015-07-26T08:48:30.514Z</updated>
+    <content type="html"><![CDATA[<h2 id="生产">生产</h2><p>RC 信号由 <strong>src/drivers/px4io/px4io.cpp#L1653</strong> 发布，频率上限只有 50Hz (由 <strong><em>IO_POLL_INTERVAL</em></strong> 限制)。</p>
+<blockquote>
+<p>事实上在同一块代码里发现，对电调的 PWM 输出也是限制在 50Hz。</p>
+</blockquote>
+<p>发布载体为 <code>struct rc_input_values</code>，<strong>sensors.cpp</strong> 中 <em>rc_poll()</em> 流程如下：</p>
+<p><a name="rc_flow"></a><img src="rc_flow.png" alt=""></p>
+<ol>
+<li><a href="#rc_flow">发布流程图</a>表明，无论信号质量怎样， <em>rc_channels</em> 总是会广播。本信息放的是归一化后的各通道数值，限制在 -1~1<blockquote>
+<p>根据 <em>rc_channels</em> 的处理方式，油门的 trim 设置非常重要，一定等于该通道的最小值</p>
+</blockquote>
+</li>
+<li>如果信号质量正常，还会广播以 <code>struct manual_control_setpoints_s</code> 为载体的 <strong><em>manual_control_setpoint</em></strong><blockquote>
+<p>在 manual 控制模式下，本消息会复制到 <em>_v_att_sp</em> 供姿态控制 app 使用</p>
+</blockquote>
+</li>
+<li>最后，<strong><em>manual_control_setpoint</em></strong> 会复制到 <strong><em>actuator_controls_3</em></strong>，至于怎么用，需要进一步研究</li>
+</ol>
+<h2 id="内部消费">内部消费</h2><h2 id="mavlink_消费">mavlink 消费</h2><p>mavlink 模块会发送两种 RC 包，分别为 <code>RC_CHANNELS_RAW</code> 及 <code>RC_CHANNELS</code>。</p>
+<h3 id="RC_CHANNELS_RAW">RC_CHANNELS_RAW</h3><p><strong>RC_CHANNELS_RAW</strong> 是为了兼容老的飞控搞的一个消息。生成机制如下：</p>
+<ul>
+<li><p>首先，消息载体 <code>mavlink_rc_channels_raw_t</code> 只能装 8 路信号，然后一位 <code>port</code> 指示这 8 路走哪个端口。事实上好的遥控器很容易就超过 8 路，比如说有 18 路的 Futaba，那么这个载体肯定是不够用的。在这种情况下，<code>port</code> 可以复用来指示是低 8 路，中 8 路或者高 8 路;</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="keyword">__mavlink_rc_channels_raw_t</span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">uint32_t</span> time_boot_ms; <span class="comment">///&lt; Timestamp (milliseconds since system boot)</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan1_raw; <span class="comment">///&lt; RC channel 1 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan2_raw; <span class="comment">///&lt; RC channel 2 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan3_raw; <span class="comment">///&lt; RC channel 3 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan4_raw; <span class="comment">///&lt; RC channel 4 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan5_raw; <span class="comment">///&lt; RC channel 5 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan6_raw; <span class="comment">///&lt; RC channel 6 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan7_raw; <span class="comment">///&lt; RC channel 7 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint16_t</span> chan8_raw; <span class="comment">///&lt; RC channel 8 value, in microseconds. A value of UINT16_MAX implies the channel is unused.</span></span><br><span class="line"> <span class="keyword">uint8_t</span> port; <span class="comment">///&lt; Servo output port (set of 8 outputs = 1 port). Most MAVs will just use one, but this allows for more than 8 servos.</span></span><br><span class="line"> <span class="keyword">uint8_t</span> rssi; <span class="comment">///&lt; Receive signal strength indicator, 0: 0%, 100: 100%, 255: invalid/unknown.</span></span><br><span class="line">&#125; <span class="keyword">mavlink_rc_channels_raw_t</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后，在 <strong>uORB</strong> 上实际在走的 rc 载体是 <code>struct rc_input_values</code>，除去 18 路信号外，还包含时间戳，丢包统计之类的东西，参见 <code>drv_rc_input.h#90L</code>;</p>
+</li>
+<li>mavlink 发送 RC 包的时候，会循环 3 次，发送 <code>MAVLINK_MSG_ID_RC_CHANNELS_RAW</code> 信息(因为一次只能发 8 路。。。)</li>
+</ul>
+<h3 id="RC_CHANNELS">RC_CHANNELS</h3><p>在 <code>RC_CHANNELS_RAW</code> 消息发送以后，mavlink 会紧跟上发送 <code>RC_CHANNELS</code>。<code>RC_CHANNELS</code> 的载体是 <code>mavlink_rc_channels_t</code>，跟 <code>struct rc_input_values</code> 相比，主要是少了丢包信息。</p>
+<h3 id="优化">优化</h3><p>简单地说，<code>RC_CHANNELS_RAW</code> 基本不会用到，发送频率又跟 <code>RC_CHANNELS</code> 绑定，最好的方法是直接注释掉。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="生产">生产</h2><p>RC 信号由 <strong>src/drivers/px4io/px4io.cpp#L1653</strong> 发布，频率上限只有 50Hz (由 <strong><em>IO_POLL_INTERVAL</em></strong>]]>
+    </summary>
+    
+      <category term="mavlink" scheme="http://yoursite.com/tags/mavlink/"/>
+    
+      <category term="pixhawk" scheme="http://yoursite.com/tags/pixhawk/"/>
+    
+      <category term="rc" scheme="http://yoursite.com/tags/rc/"/>
+    
+      <category term="pixhawk" scheme="http://yoursite.com/categories/pixhawk/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[GIT 使用指南]]></title>
+    <link href="http://yoursite.com/2014/12/10/git/"/>
+    <id>http://yoursite.com/2014/12/10/git/</id>
+    <published>2014-12-10T09:21:44.000Z</published>
+    <updated>2015-07-26T08:48:30.511Z</updated>
+    <content type="html"><![CDATA[<h2 id="基本命令">基本命令</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user<span class="class">.name</span> ziyangli</span><br><span class="line">git config --global user<span class="class">.email</span> ziyang<span class="class">.d</span><span class="class">.lee</span>@gmail<span class="class">.com</span></span><br><span class="line"></span><br><span class="line">git config --list #查看配置的信息</span><br><span class="line">git help push/config<span class="comment">/*** # 查看某条命令的使用方式</span></span><br></pre></td></tr></table></figure>
+<h3 id="新建仓库">新建仓库</h3><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="keyword">add</span> origin git@github.com:***/<span class="keyword">test</span>.git # 添加源</span><br><span class="line">git <span class="keyword">push</span> -u origin master # <span class="keyword">push</span> 新建仓库到 origin 源，同时设置默认 <span class="preprocessor">up</span>-stream 分支为 master</span><br></pre></td></tr></table></figure>
+<h2 id="建立_fork_与上游版本的同步">建立 fork 与上游版本的同步</h2><p>显示目前项目的上游路径都有哪些，自己的一般是 <code>origin</code> 打头</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git remote -v</span><br></pre></td></tr></table></figure>
+<p>添加上游路径<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote <span class="built_in">add</span> upstream http<span class="variable">s:</span>//github.<span class="keyword">com</span>/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="external">下载上游版本</a></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git fetch upstream</span><br></pre></td></tr></table></figure>
+<p>Merge the changes from <code>upstream/master</code> into your local <code>master</code> branch<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="operator"><span class="keyword">merge</span> upstream/<span class="keyword">master</span></span></span><br></pre></td></tr></table></figure></p>
+<h2 id="解决本地修改与上游的冲突"><a href="https://help.github.com/articles/resolving-a-merge-conflict-from-the-command-line/" target="_blank" rel="external">解决本地修改与上游的冲突</a></h2>]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="基本命令">基本命令</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line"]]>
+    </summary>
+    
+      <category term="git" scheme="http://yoursite.com/tags/git/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Pixhawk 基础]]></title>
+    <link href="http://yoursite.com/2014/12/09/pixhawk/"/>
+    <id>http://yoursite.com/2014/12/09/pixhawk/</id>
+    <published>2014-12-09T08:36:25.000Z</published>
+    <updated>2015-07-26T08:48:30.518Z</updated>
+    <content type="html"><![CDATA[<h2 id="资源">资源</h2><p><a href="https://groups.google.com/forum/#!topic/px4users/dwi1nfmTmbg" target="_blank" rel="external">Lorenz 最近重新整理了一下 wiki</a>，非常值得一个一个页面浏览一遍。</p>
+<h2 id="工具链安装"><a href="https://pixhawk.org/dev/toolchain_installation_lin" target="_blank" rel="external">工具链安装</a></h2><p>主要是安装依赖并将用户加入 <strong>dialout</strong> 组及 <strong>plugdev</strong> 组</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -<span class="tag">a</span> -G dialout <span class="variable">$USER</span></span><br><span class="line">$ sudo usermod -<span class="tag">a</span> -G plugdev <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+<p>然后安装 <a href="https://github.com/PX4/Firmware/commit/94ad98d59bab98702b790980a86c2b04d3b084ec" target="_blank" rel="external"><strong>arm-gcc</strong></a>，注意网上可以找到一个 ppa，但是不要使用，因为版本不对。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> install ia32-libs <span class="keyword">python</span>-serial <span class="keyword">python</span>-argparse <span class="keyword">grep</span></span><br><span class="line">$ sudo apt-<span class="built_in">get</span> install flex bison libncurses5-dev autoconf texinfo build-essential libtool zlib1g-dev genromfs git wget</span><br><span class="line">$ pushd .</span><br><span class="line">$ <span class="keyword">cd</span> ~</span><br><span class="line">$ wget http<span class="variable">s:</span>//launchpadlibrarian.net/<span class="number">174121628</span>/gcc-arm-none-eabi-<span class="number">4</span>_7-<span class="number">2014</span>q2-<span class="number">20140408</span>-linux.tar.bz2</span><br><span class="line">$ tar -jxf gcc-arm-none-eabi-<span class="number">4</span>_7-<span class="number">2014</span>q2-<span class="number">20140408</span>-linux.tar.bz2</span><br><span class="line">$ exportline=<span class="string">"export PATH=$HOME/gcc-arm-none-eabi-4_7-2014q2/bin:\$PATH"</span></span><br><span class="line">$ <span class="keyword">if</span> <span class="keyword">grep</span> -Fxq <span class="string">"$exportline"</span> ~/.<span class="keyword">profile</span>; then <span class="keyword">echo</span> nothing <span class="keyword">to</span> <span class="keyword">do</span> ; <span class="keyword">else</span> <span class="keyword">echo</span> $exportline &gt;&gt; ~/.<span class="keyword">profile</span>; fi</span><br><span class="line">$ . ~/.<span class="keyword">profile</span></span><br><span class="line">$ popd</span><br></pre></td></tr></table></figure>
+<h2 id="烧程序并上传固件">烧程序并上传固件</h2><p>如果 NuttX 更新过<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>make distclean</span><br><span class="line"><span class="variable">$ </span>make clean</span><br><span class="line"><span class="variable">$ </span>make archives</span><br><span class="line"><span class="variable">$ </span>make px4fmu-v2_default</span><br></pre></td></tr></table></figure></p>
+<p>否则<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>make clean</span><br><span class="line"><span class="variable">$ </span>make px4fmu-v2_default</span><br></pre></td></tr></table></figure></p>
+<p>上传<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>make upload px4fmu-v2_default</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>经测试，这一步一定要先卸载 <a href="https://pixhawk.org/dev/flash_px4fmu_lin" target="_blank" rel="external">modemmanager</a></p>
+</blockquote>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> <span class="built_in">remove</span> modemmanager</span><br></pre></td></tr></table></figure>
+<h2 id="系统启动"><a href="https://pixhawk.org/dev/system_startup" target="_blank" rel="external">系统启动</a></h2><p>启动顺序由 <code>/etc/init.d/rcS</code> 控制，步骤：</p>
+<p><img src="rcS.png" alt=""></p>
+<ol>
+<li>检测硬件</li>
+<li>加载传感器驱动</li>
+<li>其他 <code>apps</code></li>
+</ol>
+<p>所有用于自动启动的脚本都位于 <code>ROMFS/px4fmu_common/init.d/</code>。</p>
+<ul>
+<li>所以牛逼的人才自己写 <code>etc/rc.txt</code>，自己修改时改 <code>etc/config.txt</code> 及 <code>etc/extras.txt</code></li>
+<li>重刷固件的时候，<code>SYS_AUTOCONFIG = 1</code>，导致所有参数重置（包括这个变量）。</li>
+<li>重刷后依然想保留的配置（<a href="#subsec-mixer">mixer</a>, <a href="#subsec-custom-model">output mode</a>, PWM range etc.），应该写在 <code>etc/config.txt</code> 里面。</li>
+</ul>
+<h2 id="Mavlink"><a href="https://pixhawk.org/firmware/apps/mavlink" target="_blank" rel="external">Mavlink</a></h2><blockquote>
+<p>The mavlink application sends and receives MAVLink packets on a serial port and translates them into the onboard object request broker structure. </p>
+</blockquote>
+<h3 id="app_功能">app 功能</h3><ul>
+<li>航点管理 (waypoint management)<ol>
+<li>用户在地面站输入航点</li>
+<li>mavlink app 接收航点</li>
+<li>app 确定当前位置及当前激活航点的偏差判断是否到达</li>
+<li>当前激活当点会作为位置控制器的输入</li>
+</ol>
+</li>
+<li>参数更新 (updating of parameters)</li>
+</ul>
+<h3 id="使用">使用</h3><p>系统启动以后自动 <strong>TELEM1</strong> (<code>/dev/ttyS1</code>) 开 mavlink。</p>
+<ul>
+<li>默认的波特率为 57600</li>
+</ul>
+<p>如果希望用串口 (serial 4)，需要自己手动启动或者加到启动脚本里。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nsh&gt; mavlink start -d /dev/ttyS6 -<span class="tag">b</span> <span class="number">460800</span></span><br></pre></td></tr></table></figure>
+<p>usb 口 (<code>/dev/ttyACM0</code>) 比较特殊，默认开的是一个 nsh，不发送 mavlink 信息。但是连上 QGC 以后，<a href="https://groups.google.com/forum/#!topic/qgroundcontrol/jeFmn5Hcqks" target="_blank" rel="external">QGC 会通过 nsh 开 mavlink！</a>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// https://github.com/mavlink/qgroundcontrol/blob/fc493d75c1e037e6d3919906c4b1a32ebe9cad91/src/comm/MAVLinkProtocol.cc#L189</span></span><br><span class="line"><span class="comment">// Send command to start MAVLink</span></span><br><span class="line"><span class="comment">// <span class="doctag">XXX</span> hacky but safe</span></span><br><span class="line"><span class="comment">// Start NSH</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> init[] = &#123;<span class="number">0x0d</span>, <span class="number">0x0d</span>, <span class="number">0x0d</span>&#125;;</span><br><span class="line">link-&gt;writeBytes(init, <span class="keyword">sizeof</span>(init));</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* cmd = <span class="string">"sh /etc/init.d/rc.usb\n"</span>;</span><br><span class="line">link-&gt;writeBytes(cmd, <span class="built_in">strlen</span>(cmd));</span><br><span class="line">link-&gt;writeBytes(init, <span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="mavlink_log">mavlink log</h3><p>Mavlink 提供三种 log 功能。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mavlink_log_emergency(_fd, _str)</span><br><span class="line">mavlink_log_critical(_fd, _str)</span><br><span class="line">mavlink_log_info(_fd, _str)</span><br></pre></td></tr></table></figure>
+<p>这样子使用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;mavlink/mavlink_log.h&gt;</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> mavlink_fd;</span><br><span class="line">mavlink_fd = open(MAVLINK_LOG_DEVICE, <span class="number">0</span>);</span><br><span class="line">mavlink_log_info(mavlink_fd, <span class="string">"[myapp] Hello, this is myapp talking."</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>MAVLINK_LOG_DEVICE = “/dev/mavlink”</strong><ul>
+<li>这个设备由 <code>mavlink_main.cpp</code> 注册，其它模块只打开及写入</li>
+</ul>
+</li>
+<li><code>mavlink_log.h</code> 由 mavlink 提供，不是 Pixhawk 的一部分</li>
+</ul>
+<h2 id="其它">其它</h2><h3 id="Output_Mixers"><a name="subsec-mixer"></a> Output Mixers</h3><blockquote>
+<p>The <code>output mixer</code> defines how the controller output gets mapped to the motor and servo outputs.</p>
+</blockquote>
+<ol>
+<li>不同飞机的 mixer 都放在 <code>etc/mixers</code>，文件夹内有 README 可以看文件格式定义</li>
+<li>个人定制的 mixer 文件命名为 <code>FMU_ABC.mix</code>，然后通过 <code>MIXER = FMU_ABC</code> 来使用</li>
+</ol>
+<h3 id="Custom_Model"><a name="subsec-custom-model"></a> Custom Model</h3><p><code>etc/config.txt</code> 内可以定制机架类型。如果要定制 <strong>a quadcopter with “+” configuration with ESCs connected to PX4IO and custom PWM range (1100…1900)</strong>，大概写成这样：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Generic Quadcopter +</span><br><span class="line"><span class="operator"><span class="keyword">set</span> VEHICLE_TYPE mc</span><br><span class="line"><span class="keyword">set</span> MIXER FMU_quad_+</span><br><span class="line"># PX4IO PWM <span class="keyword">output</span> will be used <span class="keyword">by</span> <span class="keyword">default</span></span><br><span class="line"><span class="keyword">set</span> PWM_OUTPUTS <span class="number">1234</span>    # <span class="keyword">Change</span> parameters <span class="keyword">for</span> the <span class="keyword">first</span> <span class="number">4</span> outputs</span><br><span class="line"><span class="keyword">set</span> PWM_RATE <span class="number">400</span>        # <span class="keyword">Set</span> PWM rate <span class="keyword">to</span> <span class="number">400</span> Hz <span class="keyword">for</span> better performance</span><br><span class="line"><span class="keyword">set</span> PWM_DISARMED <span class="number">900</span>    # Motors should <span class="keyword">stop</span> <span class="keyword">at</span> this PWM <span class="keyword">value</span></span><br><span class="line"><span class="keyword">set</span> PWM_MIN <span class="number">1100</span>        # Motors should spin <span class="keyword">at</span> low, idle speed <span class="keyword">at</span> this PWM <span class="keyword">value</span></span><br><span class="line"><span class="keyword">set</span> PWM_MAX <span class="number">1900</span>        # Motors should spin <span class="keyword">at</span> <span class="keyword">max</span> speed <span class="keyword">at</span> this PWM <span class="keyword">value</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="Circuit_Breakers"><a href="https://pixhawk.org/dev/circuit_breakers?s[]=cbrk#cbrk_io_safety" target="_blank" rel="external">Circuit Breakers</a></h3><p>断流器 (Circuit Breakers) 用来在软件上屏蔽某些模块。</p>
+<p>例如想省去每次上电需要按 safety switch 的步骤，就可以使 <code>CBRK_IO_SAFETY = 22027</code>。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="资源">资源</h2><p><a href="https://groups.google.com/forum/#!topic/px4users/dwi1nfmTmbg" target="_blank" rel="external">Lorenz 最近重新整理了一下]]>
+    </summary>
+    
+      <category term="pixhawk" scheme="http://yoursite.com/tags/pixhawk/"/>
+    
+      <category term="pixhawk" scheme="http://yoursite.com/categories/pixhawk/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hexo 安装及配置]]></title>
+    <link href="http://yoursite.com/2014/12/09/hexo/"/>
+    <id>http://yoursite.com/2014/12/09/hexo/</id>
+    <published>2014-12-09T08:12:04.000Z</published>
+    <updated>2015-07-26T08:48:30.511Z</updated>
+    <content type="html"><![CDATA[<h2 id="安装_nvm_(Node_Version_Manager)">安装 <a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a> (Node Version Manager)</h2><p>利用官方脚本</p>
+<blockquote>
+<p>脚本会把 nvm 克隆到 ~/.nvm</p>
+</blockquote>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wget -qO- http<span class="variable">s:</span>//raw.github.<span class="keyword">com</span>/creationix/nvm/master/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></span><br><span class="line">$ nvm install <span class="number">0.10</span></span><br></pre></td></tr></table></figure>
+<p>显示安装的实际版本</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>nvm ls</span><br></pre></td></tr></table></figure>
+<h3 id="Update">Update</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nvm <span class="keyword">install</span> stable</span><br></pre></td></tr></table></figure>
+<h2 id="安装并初始化_Hexo">安装并初始化 Hexo</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="keyword">install</span> -g hexo</span><br></pre></td></tr></table></figure>
+<p>进入博客文件夹（assume <code>Documents/gist_src</code>）</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo init gist_src</span><br></pre></td></tr></table></figure>
+<p>生成静态文件</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo <span class="keyword">generate</span>/hexo <span class="keyword">g</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>!!!</strong> make sure <a href="#subsec-renderer">rendering plugins</a> have already been installed</p>
+</blockquote>
+<p>预览</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo s</span><br></pre></td></tr></table></figure>
+<h2 id="安装必要插件"><a name="sec-plugins"></a>安装必要插件</h2><p>Be noticed, it seems that all the plugins will be intalled under <strong> <em>gist_src/node_modules/</em> </strong></p>
+<p>To update all the plugins, just</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">npm</span> update</span><br></pre></td></tr></table></figure>
+<h3 id="Renderer"><a name="subsec-renderer"></a>Renderer</h3><p>The following renderers seem to be <a href="https://github.com/hexojs/hexo/releases/tag/2.6.0" target="_blank" rel="external">must-have</a> if you need to view the html result locally.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="operator"><span class="keyword">install</span> hexo-renderer-ejs <span class="comment">--save</span></span><br><span class="line">$ npm <span class="keyword">install</span> hexo-renderer-stylus <span class="comment">--save</span></span><br><span class="line">$ npm <span class="keyword">install</span> hexo-renderer-marked <span class="comment">--save</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="MathJax">MathJax</h3><p>Show math locally:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="operator"><span class="keyword">install</span> hexo-renderer-mathjax <span class="comment">--save</span></span></span><br></pre></td></tr></table></figure>
+<p>修改 <code>_config.yml</code></p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plugins:</span><br><span class="line"><span class="bullet">- </span>hexo-renderer-mathjax</span><br></pre></td></tr></table></figure>
+<h3 id="hexo-tag-asset-res"><a href="https://github.com/timnew/hexo-tag-asset-res" target="_blank" rel="external">hexo-tag-asset-res</a></h3><blockquote>
+<p>Hexo tags that enable you to reference files in post asset with relative path</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-tag-asset-res --save</span><br></pre></td></tr></table></figure>
+<h2 id="使用">使用</h2><p>发现新终端内总是需要先开启 nvm</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>nvm <span class="keyword">use</span> [tab]</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="安装_nvm_(Node_Version_Manager)">安装 <a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a> (Node Version M]]>
+    </summary>
+    
+      <category term="blog" scheme="http://yoursite.com/tags/blog/"/>
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+    
+      <category term="markdown" scheme="http://yoursite.com/tags/markdown/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+  </entry>
+  
+</feed>

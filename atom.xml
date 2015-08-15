@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Blog of Yes2oday]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://ziyangli.github.io//"/>
-  <updated>2015-07-26T10:59:32.602Z</updated>
+  <updated>2015-08-06T16:58:43.443Z</updated>
   <id>http://ziyangli.github.io//</id>
   
   <author>
@@ -20,8 +20,8 @@
     <link href="http://ziyangli.github.io/2015/07/26/arch/"/>
     <id>http://ziyangli.github.io/2015/07/26/arch/</id>
     <published>2015-07-26T10:19:49.000Z</published>
-    <updated>2015-07-26T10:59:32.602Z</updated>
-    <content type="html"><![CDATA[<p>My W520 workstation have been at rest for quite a while and I decide to re-install an Archbang.</p>
+    <updated>2015-08-06T16:58:43.443Z</updated>
+    <content type="html"><![CDATA[<p>My W520 workstation have been at rest for quite a while and I decide to re-install an <strong>Archbang</strong>.</p>
 <h4 id="Fcitx">Fcitx</h4><p>According to <a href="https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" target="_blank" rel="external">Wiki</a>, I need to append the following to <code>.xinitrc</code> since my VM is <code>Slim</code> launched</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GTK_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> QT_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> XMODIFIERS=<span class="string">"@im=fcitx"</span></span><br></pre></td></tr></table></figure>
 <p>However it does not work until I append it to <code>.xprofile</code>.</p>
@@ -33,11 +33,20 @@
 <li>To input Chinese in Emacs</li>
 </ul>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">env</span> LC_CTYPE=<span class="string">"zh_CN.UTF-8"</span> emacs</span><br></pre></td></tr></table></figure>
+<h4 id="EMACS">EMACS</h4><p>Dependencies for auto-complete:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">yaourt</span> -S clang</span><br></pre></td></tr></table></figure>
 <h4 id="Dropbox">Dropbox</h4><p>I have to <a href="http://crunchbang.org/forums/viewtopic.php?id=38154&amp;p=2" target="_blank" rel="external">change tint2 Alpha from 100 to 99</a>, in order to get the System Tray icon.</p>
+<h4 id="Fonts">Fonts</h4><p>Although I have not tried, but <a href="https://www.v2ex.com/t/124861" target="_blank" rel="external">it</a> looks promising.</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">yaourt</span> -<span class="type">S</span> cairo-ubuntu fontconfig-ubuntu freetype2-ubuntu ttf-ubuntu-font-<span class="keyword">family</span></span><br></pre></td></tr></table></figure>
+<h2 id="ROS">ROS</h2><p>Append</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127<span class="class">.0</span><span class="class">.0</span><span class="class">.1</span> <span class="tag">localhost</span></span><br></pre></td></tr></table></figure>
+<p>to <strong>/etc/hosts</strong></p>
+<h3 id="essential_packages">essential packages</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt -S ros-indigo-xacro ros-indigo-joint-<span class="keyword">state</span>-publisher ros-indigo-robot-<span class="keyword">state</span>-publisher ros-indigo-diagnostic-updater</span><br></pre></td></tr></table></figure>
+<h3 id="wstool">wstool</h3><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt -S pytho<span class="label">n2</span>-dateutil</span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>My W520 workstation have been at rest for quite a while and I decide to re-install an Archbang.</p>
-<h4 id="Fcitx">Fcitx</h4><p>According]]>
+    <![CDATA[<p>My W520 workstation have been at rest for quite a while and I decide to re-install an <strong>Archbang</strong>.</p>
+<h4 id="Fcitx">Fcitx]]>
     </summary>
     
       <category term="arch" scheme="http://ziyangli.github.io/tags/arch/"/>
@@ -506,7 +515,7 @@
     <link href="http://ziyangli.github.io/2014/12/17/ros-trick/"/>
     <id>http://ziyangli.github.io/2014/12/17/ros-trick/</id>
     <published>2014-12-17T08:53:13.000Z</published>
-    <updated>2015-07-26T08:48:30.518Z</updated>
+    <updated>2015-08-15T09:54:31.000Z</updated>
     <content type="html"><![CDATA[<h2 id="源码安装_pkg">源码安装 pkg</h2><h3 id="wstool">wstool</h3><p>一个例子：</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ wstool init src (<span class="keyword">if</span> <span class="keyword">not</span> already initialized)</span><br><span class="line">$ wstool <span class="keyword">set</span> -t src mavros <span class="comment">--git https://github.com/mavlink/mavros.git</span></span><br><span class="line">$ wstool update -t src</span><br><span class="line">$ rosdep install <span class="comment">--from-paths src --ignore-src --rosdistro indigo -y</span></span><br></pre></td></tr></table></figure>
 <p>最后一条会安装依赖。</p>
@@ -530,6 +539,21 @@
 <h2 id="rqt_plot">rqt_plot</h2><h3 id="同时显示多个话题">同时显示多个话题</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ rqt_plot <span class="regexp">/turtle1/</span>pose/<span class="string">x:</span><span class="string">y:</span>z</span><br><span class="line">$ rqt_plot <span class="regexp">/turtle1/</span>pose<span class="regexp">/x /</span>turtle1<span class="regexp">/pose/</span>y <span class="regexp">/turtle1/</span>pose/z</span><br></pre></td></tr></table></figure>
 <h3 id="后端">后端</h3><p>rqt_plot 可以使用不同后端， <code>matplotlib</code> 及 <code>qwt</code> 慢或者支持不完善，推荐用 <code>pyqtgraph</code>。</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>wget <span class="symbol">https:</span>/<span class="regexp">/bootstrap.pypa.io/ez</span>_setup.py -<span class="constant">O </span>- | sudo python</span><br><span class="line"><span class="variable">$ </span>sudo easy_install pyqtgraph</span><br></pre></td></tr></table></figure>
+<h2 id="0X04_用_Qt_Creator_作为_IDE_(未测试)">0X04 用 Qt Creator 作为 IDE (未测试)</h2><ol>
+<li><p>安装好 qt 以后</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export CMAKE_PREFIX_PATH=<span class="regexp">/opt/</span>qt54<span class="regexp">/lib/</span><span class="string">cmake:</span>$CMAKE_PREFIX_PATH</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>open qt creator with the environment path</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -<span class="tag">i</span> -c qtcreator</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>open project</p>
+<ul>
+<li>open the CmakeList.txt under your package file</li>
+<li>choose the Build Location to be under your package file<br>e.g. <em>../catkin_ws/src/hello/build</em></li>
+<li>edit your Run Cmake to be like this:<br>-DCATKIN_DEVEL_PREFIX=<your workspace="" path="">/catkin_ws/devel<br>-DCMAKE_BUILD_TYPE=Debug</your></li>
+</ul>
+</li>
+</ol>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="源码安装_pkg">源码安装 pkg</h2><h3 id="wstool">wstool</h3><p>一个例子：</p>
@@ -783,12 +807,12 @@
     <link href="http://ziyangli.github.io/2014/12/09/hexo/"/>
     <id>http://ziyangli.github.io/2014/12/09/hexo/</id>
     <published>2014-12-09T08:12:04.000Z</published>
-    <updated>2015-07-26T14:29:40.776Z</updated>
+    <updated>2015-07-26T14:33:18.841Z</updated>
     <content type="html"><![CDATA[<h2 id="安装_nvm_(Node_Version_Manager)">安装 <a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a> (Node Version Manager)</h2><p>利用官方脚本</p>
 <blockquote>
 <p>脚本会把 nvm 克隆到 ~/.nvm</p>
 </blockquote>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wget -qO- http<span class="variable">s:</span>//raw.github.<span class="keyword">com</span>/creationix/nvm/master/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></span><br><span class="line">$ nvm install <span class="number">0.10</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wget -qO- http<span class="variable">s:</span>//raw.github.<span class="keyword">com</span>/creationix/nvm/master/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></span><br><span class="line">$ nvm install stable</span><br></pre></td></tr></table></figure>
 <p>显示安装的实际版本</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>nvm ls</span><br></pre></td></tr></table></figure>
 <h3 id="Update">Update</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nvm <span class="keyword">install</span> stable</span><br></pre></td></tr></table></figure>

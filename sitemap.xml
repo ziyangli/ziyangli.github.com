@@ -2,8 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ziyangli.github.io/2014/12/17/ros-trick/</loc>
+    <lastmod>2015-08-15T09:54:31.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://ziyangli.github.io/2015/07/26/arch/</loc>
+    <lastmod>2015-08-06T16:58:43.443Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://ziyangli.github.io/2014/12/09/hexo/</loc>
-    <lastmod>2015-07-26T14:29:40.776Z</lastmod>
+    <lastmod>2015-07-26T14:33:18.841Z</lastmod>
   </url>
   
   <url>
@@ -22,18 +32,8 @@
   </url>
   
   <url>
-    <loc>http://ziyangli.github.io/2015/07/26/arch/</loc>
-    <lastmod>2015-07-26T10:59:32.602Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://ziyangli.github.io/index/index.html</loc>
     <lastmod>2015-07-26T10:12:19.532Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://ziyangli.github.io/2015/04/01/ros-replacement/</loc>
-    <lastmod>2015-07-26T08:48:30.518Z</lastmod>
   </url>
   
   <url>
@@ -52,7 +52,7 @@
   </url>
   
   <url>
-    <loc>http://ziyangli.github.io/2014/12/17/ros-trick/</loc>
+    <loc>http://ziyangli.github.io/2015/04/01/ros-replacement/</loc>
     <lastmod>2015-07-26T08:48:30.518Z</lastmod>
   </url>
   

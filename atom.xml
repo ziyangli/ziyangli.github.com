@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Blog of Yes2oday]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://ziyangli.github.io//"/>
-  <updated>2015-08-06T16:58:43.443Z</updated>
+  <updated>2015-08-15T12:19:48.000Z</updated>
   <id>http://ziyangli.github.io//</id>
   
   <author>
@@ -20,33 +20,33 @@
     <link href="http://ziyangli.github.io/2015/07/26/arch/"/>
     <id>http://ziyangli.github.io/2015/07/26/arch/</id>
     <published>2015-07-26T10:19:49.000Z</published>
-    <updated>2015-08-06T16:58:43.443Z</updated>
+    <updated>2015-08-15T12:19:48.000Z</updated>
     <content type="html"><![CDATA[<p>My W520 workstation have been at rest for quite a while and I decide to re-install an <strong>Archbang</strong>.</p>
-<h4 id="Fcitx">Fcitx</h4><p>According to <a href="https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" target="_blank" rel="external">Wiki</a>, I need to append the following to <code>.xinitrc</code> since my VM is <code>Slim</code> launched</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GTK_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> QT_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> XMODIFIERS=<span class="string">"@im=fcitx"</span></span><br></pre></td></tr></table></figure>
-<p>However it does not work until I append it to <code>.xprofile</code>.</p>
-<ul>
+<h2 id="Fcitx">Fcitx</h2><ul>
 <li>Append this to <code>.config/openbox/autostart</code> to auto start <strong>fcitx</strong> at launch:</li>
 </ul>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">sleep</span> <span class="number">2</span> <span class="keyword">&amp;&amp;</span> fcitx)</span> &amp;</span><br></pre></td></tr></table></figure>
 <ul>
+<li>fcitx in KDE programms<br>According to <a href="https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" target="_blank" rel="external">Wiki</a>, I need to append the following to <code>.xinitrc</code> since my VM is <code>Slim</code> launched</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GTK_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> QT_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> XMODIFIERS=<span class="string">"@im=fcitx"</span></span><br></pre></td></tr></table></figure>
+<p>However it does not work until I append it to <code>.xprofile</code>.</p>
+<ul>
 <li>To input Chinese in Emacs</li>
 </ul>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">env</span> LC_CTYPE=<span class="string">"zh_CN.UTF-8"</span> emacs</span><br></pre></td></tr></table></figure>
-<h4 id="EMACS">EMACS</h4><p>Dependencies for auto-complete:</p>
+<h2 id="EMACS">EMACS</h2><p>Dependencies for auto-complete:</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">yaourt</span> -S clang</span><br></pre></td></tr></table></figure>
-<h4 id="Dropbox">Dropbox</h4><p>I have to <a href="http://crunchbang.org/forums/viewtopic.php?id=38154&amp;p=2" target="_blank" rel="external">change tint2 Alpha from 100 to 99</a>, in order to get the System Tray icon.</p>
-<h4 id="Fonts">Fonts</h4><p>Although I have not tried, but <a href="https://www.v2ex.com/t/124861" target="_blank" rel="external">it</a> looks promising.</p>
+<h2 id="Dropbox">Dropbox</h2><p>I have to <a href="http://crunchbang.org/forums/viewtopic.php?id=38154&amp;p=2" target="_blank" rel="external">change tint2 Alpha from 100 to 99</a>, in order to get the System Tray icon.</p>
+<h2 id="Fonts">Fonts</h2><p>Although I have not tried, but <a href="https://www.v2ex.com/t/124861" target="_blank" rel="external">it</a> looks promising.</p>
 <figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">yaourt</span> -<span class="type">S</span> cairo-ubuntu fontconfig-ubuntu freetype2-ubuntu ttf-ubuntu-font-<span class="keyword">family</span></span><br></pre></td></tr></table></figure>
-<h2 id="ROS">ROS</h2><p>Append</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127<span class="class">.0</span><span class="class">.0</span><span class="class">.1</span> <span class="tag">localhost</span></span><br></pre></td></tr></table></figure>
-<p>to <strong>/etc/hosts</strong></p>
+<h2 id="ROS">ROS</h2><h3 id="fix_/etc/hosts">fix <strong>/etc/hosts</strong></h3><p>by appending <code>127.0.0.1 localhost</code></p>
 <h3 id="essential_packages">essential packages</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt -S ros-indigo-xacro ros-indigo-joint-<span class="keyword">state</span>-publisher ros-indigo-robot-<span class="keyword">state</span>-publisher ros-indigo-diagnostic-updater</span><br></pre></td></tr></table></figure>
 <h3 id="wstool">wstool</h3><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt -S pytho<span class="label">n2</span>-dateutil</span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>My W520 workstation have been at rest for quite a while and I decide to re-install an <strong>Archbang</strong>.</p>
-<h4 id="Fcitx">Fcitx]]>
+<h2 id="Fcitx">Fcitx]]>
     </summary>
     
       <category term="arch" scheme="http://ziyangli.github.io/tags/arch/"/>

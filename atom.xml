@@ -22,6 +22,8 @@
     <published>2015-07-26T10:19:49.000Z</published>
     <updated>2015-08-15T12:19:48.000Z</updated>
     <content type="html"><![CDATA[<p>My W520 workstation have been at rest for quite a while and I decide to re-install an <strong>Archbang</strong>.</p>
+<h2 id="Installation">Installation</h2><p>A very nice and clear <a href="https://hyjk2000.github.io/2014/01/23/arch-linux-install-guide/" target="_blank" rel="external">instruction</a>, also <a href="https://bigeagle.me/2014/06/archlinux-install-for-beginners/" target="_blank" rel="external">here</a> and <a href="http://forum.ubuntu.org.cn/viewtopic.php?f=155&amp;t=447732&amp;sid=4677d14952c41302d7c655f753f798c9" target="_blank" rel="external">here</a>.</p>
+<h3 id="Making_an_installation_stick">Making an installation stick</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="tag">dd</span> bs=<span class="number">4</span>M <span class="keyword">if</span>=/path/to/archlinux<span class="class">.iso</span> of=/dev/sdx &amp;&amp; sync</span><br></pre></td></tr></table></figure>
 <h2 id="Fcitx">Fcitx</h2><ul>
 <li>Append this to <code>.config/openbox/autostart</code> to auto start <strong>fcitx</strong> at launch:</li>
 </ul>
@@ -46,7 +48,7 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>My W520 workstation have been at rest for quite a while and I decide to re-install an <strong>Archbang</strong>.</p>
-<h2 id="Fcitx">Fcitx]]>
+<h2 id="Installation]]>
     </summary>
     
       <category term="arch" scheme="http://ziyangli.github.io/tags/arch/"/>
@@ -260,24 +262,19 @@
     <link href="http://ziyangli.github.io/2015/01/12/shadowsocks/"/>
     <id>http://ziyangli.github.io/2015/01/12/shadowsocks/</id>
     <published>2015-01-12T12:00:50.000Z</published>
-    <updated>2015-07-26T08:48:30.518Z</updated>
-    <content type="html"><![CDATA[<h2 id="Shadowsocks">Shadowsocks</h2><h3 id="服务器端">服务器端</h3><ul>
-<li>安装</li>
-</ul>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> python-pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
+    <updated>2015-08-24T02:51:59.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Shadowsocks">Shadowsocks</h2><h3 id="服务器端">服务器端</h3><h4 id="安装"><a href="http://www.phpgao.com/shadowsocks_on_linux.html" target="_blank" rel="external">安装</a></h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> python-pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
+<h4 id="配置"><a href="https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File" target="_blank" rel="external">配置</a></h4><p>Create a config file <strong>/etc/shadowsocks.json</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">server</span>":<span class="value"><span class="string">"server_ip"</span></span>,</span><br><span class="line">    "<span class="attribute">server_port</span>":<span class="value"><span class="number">433</span></span>,</span><br><span class="line">    "<span class="attribute">local_address</span>": <span class="value"><span class="string">"127.0.0.1"</span></span>,</span><br><span class="line">    "<span class="attribute">local_port</span>":<span class="value"><span class="number">1080</span></span>,</span><br><span class="line">    "<span class="attribute">password</span>":<span class="value"><span class="string">"mypassword"</span></span>,</span><br><span class="line">    "<span class="attribute">timeout</span>":<span class="value"><span class="number">300</span></span>,</span><br><span class="line">    "<span class="attribute">method</span>":<span class="value"><span class="string">"rc4-md5"</span></span>,</span><br><span class="line">    "<span class="attribute">fast_open</span>": <span class="value"><span class="literal">true</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="启用_shasa20_加密">启用 <code>shasa20</code> 加密</h4><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">apt-get install python-m2crypto</span><br><span class="line"></span><br><span class="line">wget https://download.libsodium.org/libsodium/releases/libsodium-1.0.1.tar.gz</span><br><span class="line">tar zxvf libsodium-1.0.1.tar.gz</span><br><span class="line">cd libsodium-1.0.1</span><br><span class="line"><span class="keyword">.</span>/configure</span><br><span class="line">make &amp;&amp; make<span class="instruction"> check</span><br><span class="line"></span>make install</span><br></pre></td></tr></table></figure>
 <ul>
-<li><a href="https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File" target="_blank" rel="external">配置</a></li>
+<li><a href="http://www.phpgao.com/shadowsocks_chacha20.htmlhttp://www.phpgao.com/shadowsocks_chacha20.html" target="_blank" rel="external">修复关联</a></li>
 </ul>
-<p>Create a config file <strong>/etc/shadowsocks.json</strong></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">server</span>":<span class="value"><span class="string">"0.0.0.0"</span></span>,</span><br><span class="line">    "<span class="attribute">server_port</span>":<span class="value"><span class="number">433</span></span>,</span><br><span class="line">    "<span class="attribute">local_address</span>": <span class="value"><span class="string">"127.0.0.1"</span></span>,</span><br><span class="line">    "<span class="attribute">local_port</span>":<span class="value"><span class="number">1080</span></span>,</span><br><span class="line">    "<span class="attribute">password</span>":<span class="value"><span class="string">"mypassword"</span></span>,</span><br><span class="line">    "<span class="attribute">timeout</span>":<span class="value"><span class="number">300</span></span>,</span><br><span class="line">    "<span class="attribute">method</span>":<span class="value"><span class="string">"rc4-md5"</span></span>,</span><br><span class="line">    "<span class="attribute">fast_open</span>": <span class="value"><span class="literal">true</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>开启与关闭</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks<span class="class">.json</span> -d start</span><br><span class="line">ssserver -c /etc/shadowsocks<span class="class">.json</span> -d stop</span><br></pre></td></tr></table></figure>
-<ul>
-<li><a href="https://github.com/shadowsocks/shadowsocks/wiki/Optimizing-Shadowsocks" target="_blank" rel="external">优化</a></li>
-</ul>
-<p>事实上，由于国内网络连 DO 主机的速度，根本谈不上优化。。。</p>
+<p>It is said that we need to <a href="http://www.phpgao.com/shadowsocks_chacha20.html" target="_blank" rel="external">fix <strong>association</strong></a>, though I have no idea what it means.</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 修复关联</span><br><span class="line">echo /usr/<span class="keyword">local</span>/lib &gt; /etc/ld.<span class="keyword">so</span>.<span class="keyword">conf</span>.<span class="keyword">d</span>/usr_local_lib.<span class="keyword">conf</span></span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure>
+<h4 id="开启与关闭">开启与关闭</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks<span class="class">.json</span> -d start</span><br><span class="line">ssserver -c /etc/shadowsocks<span class="class">.json</span> -d stop</span><br></pre></td></tr></table></figure>
+<h4 id="优化"><a href="https://github.com/shadowsocks/shadowsocks/wiki/Optimizing-Shadowsocks" target="_blank" rel="external">优化</a></h4><p>事实上，由于国内网络连 DO 主机的速度，根本谈不上优化。。。</p>
+<h4 id="解决_DO_CSS_被墙">解决 DO CSS 被墙</h4><p>在 <strong>/etc/hosts</strong> 添加<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">199<span class="class">.27</span><span class="class">.79</span><span class="class">.249</span> <span class="tag">cloud-cdn-digitalocean-com</span><span class="class">.global</span><span class="class">.ssl</span><span class="class">.fastly</span><span class="class">.net</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="客户端">客户端</h3><ul>
 <li>下载后端</li>
 </ul>
@@ -303,12 +300,10 @@
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules</span><br></pre></td></tr></table></figure>
 <p>修改 <strong>/etc/network/interfaces</strong>，在 eth0 下添加：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pre</span>-<span class="keyword">up</span> iptables-restore &lt; /etc/iptables-rules</span><br></pre></td></tr></table></figure></p>
 <p>最后清理 nash-hotplug，修改 <strong>/etc/rc.local</strong> 文件，在 <code>exit 0</code> 之前添加此命令： <code>pkill -9 nash</code></p>
+<h2 id="dnsmasq"><a href="https://github.com/softwaredownload/openwrt-fanqiang/blob/master/ebook/03.5.md" target="_blank" rel="external">dnsmasq</a></h2><p>Dnsmasq 用于引导对 DNS 服务器的访问，比如说访问国内地址，就去查 114 DNS 服务器，如果访问国外地址，就去查 8.8.8.8 服务器。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="Shadowsocks">Shadowsocks</h2><h3 id="服务器端">服务器端</h3><ul>
-<li>安装</li>
-</ul>
-<figure class="highlight cmake"><table><tr><td class="gut]]>
+    <![CDATA[<h2 id="Shadowsocks">Shadowsocks</h2><h3 id="服务器端">服务器端</h3><h4 id="安装"><a href="http://www.phpgao.com/shadowsocks_on_linux.html" target="_b]]>
     </summary>
     
       <category term="pptp" scheme="http://ziyangli.github.io/tags/pptp/"/>
@@ -368,7 +363,7 @@
     <link href="http://ziyangli.github.io/2014/12/20/jetsontk1/"/>
     <id>http://ziyangli.github.io/2014/12/20/jetsontk1/</id>
     <published>2014-12-20T05:40:22.000Z</published>
-    <updated>2015-07-26T08:48:30.514Z</updated>
+    <updated>2015-08-24T16:41:26.699Z</updated>
     <content type="html"><![CDATA[<h2 id="烧系统">烧系统</h2><h3 id="手动方法">手动方法</h3><p>参考<a href="http://developer.download.nvidia.com/mobile/tegra/l4t/r21.1.0/l4t_quick_start_guide.txt" target="_blank" rel="external">官方指南</a>，并且优先选择 <a href="https://devtalk.nvidia.com/default/topic/795734/embedded-systems/-customkernel-the-grinch-21-2-1-for-jetson-tk1/1/" target="_blank" rel="external"><strong>Grinch Kernel</strong></a>，因为带了很多驱动。</p>
 <blockquote>
 <p>21.2 版本的网络驱动有问题， Grinch Kernel 页面有介绍怎么搞，但是不是最优方案，复杂的解决方案看<a href="https://devtalk.nvidia.com/default/topic/799075/embedded-systems/jetson-tk1-r8169-netdev-watchdog-timeout-solved-/" target="_blank" rel="external">这里</a>。</p>
@@ -469,6 +464,7 @@
 <li>确认驱动正确安装</li>
 </ul>
 <figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="atom">ubuntu</span>@<span class="atom">tegra</span>-<span class="atom">ubuntu</span>:~/<span class="atom">kernel</span>$ <span class="atom">dmesg</span> | <span class="atom">grep</span> <span class="atom">usb</span></span><br><span class="line">[   <span class="number">57.385970</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="atom">new</span> <span class="atom">full</span>-<span class="atom">speed</span> <span class="name">USB</span> <span class="atom">device</span> <span class="atom">number</span> <span class="number">5</span> <span class="atom">using</span> <span class="atom">tegra</span>-<span class="atom">ehci</span></span><br><span class="line">[   <span class="number">57.407931</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">New</span> <span class="name">USB</span> <span class="atom">device</span> <span class="atom">found</span>, <span class="atom">idVendor</span>=<span class="number">0403</span>, <span class="atom">idProduct</span>=<span class="number">6001</span></span><br><span class="line">[   <span class="number">57.407950</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">New</span> <span class="name">USB</span> <span class="atom">device</span> <span class="atom">strings</span>: <span class="name">Mfr</span>=<span class="number">1</span>, <span class="name">Product</span>=<span class="number">2</span>, <span class="name">SerialNumber</span>=<span class="number">3</span></span><br><span class="line">[   <span class="number">57.407964</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Product</span>: <span class="name">FT232R</span> <span class="name">USB</span> <span class="name">UART</span></span><br><span class="line">[   <span class="number">57.407976</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Manufacturer</span>: <span class="name">FTDI</span></span><br><span class="line">[   <span class="number">57.407987</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">SerialNumber</span>: <span class="name">A601NG2B</span></span><br><span class="line">[   <span class="number">57.479238</span>] <span class="atom">ftdi_sio</span>: <span class="atom">version</span> <span class="atom">magic</span> <span class="string">'3.10.24 SMP preempt mod_unload ARMv7 p2v8 '</span> <span class="atom">should</span> <span class="atom">be</span> <span class="string">'3.10.24-gf455cd4 SMP preempt mod_unload ARMv7 p2v8 '</span></span><br><span class="line">[   <span class="number">57.504885</span>] <span class="atom">usbcore</span>: <span class="atom">registered</span> <span class="atom">new</span> <span class="atom">interface</span> <span class="atom">driver</span> <span class="atom">ftdi_sio</span></span><br><span class="line">[   <span class="number">57.507384</span>] <span class="atom">usbserial</span>: <span class="name">USB</span> <span class="name">Serial</span> <span class="atom">support</span> <span class="atom">registered</span> <span class="atom">for</span> <span class="name">FTDI</span> <span class="name">USB</span> <span class="name">Serial</span> <span class="name">Device</span></span><br><span class="line">[   <span class="number">57.508073</span>] <span class="atom">ftdi_sio</span> <span class="number">2</span>-<span class="number">1.5</span>:<span class="number">1.0</span>: <span class="name">FTDI</span> <span class="name">USB</span> <span class="name">Serial</span> <span class="name">Device</span> <span class="atom">converter</span> <span class="atom">detected</span></span><br><span class="line">[   <span class="number">57.508917</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Detected</span> <span class="name">FT232RL</span></span><br><span class="line">[   <span class="number">57.508934</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Number</span> <span class="atom">of</span> <span class="atom">endpoints</span> <span class="number">2</span></span><br><span class="line">[   <span class="number">57.508948</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Endpoint</span> <span class="number">1</span> <span class="name">MaxPacketSize</span> <span class="number">64</span></span><br><span class="line">[   <span class="number">57.508960</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Endpoint</span> <span class="number">2</span> <span class="name">MaxPacketSize</span> <span class="number">64</span></span><br><span class="line">[   <span class="number">57.508971</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">Setting</span> <span class="name">MaxPacketSize</span> <span class="number">64</span></span><br><span class="line">[   <span class="number">57.511143</span>] <span class="atom">usb</span> <span class="number">2</span>-<span class="number">1.5</span>: <span class="name">FTDI</span> <span class="name">USB</span> <span class="name">Serial</span> <span class="name">Device</span> <span class="atom">converter</span> <span class="atom">now</span> <span class="atom">attached</span> <span class="atom">to</span> <span class="atom">ttyUSB0</span></span><br></pre></td></tr></table></figure>
+<h3 id="SPI_使用"><a href="http://neurorobotictech.com/Community/Blog/tabid/184/ID/15/Using-the-Jetson-TK1-SPI--Part-5-Programming-SPI-on-the-Jetson-TK1.aspx" target="_blank" rel="external">SPI 使用</a></h3><p>SPI 能够实现 25MHz 的传输频率，但是默认并不开启，有大神详细地写了配置及使用方法。</p>
 <h3 id="挂载_USB_技巧">挂载 USB 技巧</h3><p>USB 挂载以后的序列号经常变，比如说原来是 <strong>/dev/ttyUSB0</strong>，下一次可能是 <strong>/dev/ttyUSB1</strong>，所以可以考虑用设备号挂载，比如说 <strong>/dev/serial/by-id/FTDI_XXX</strong>。</p>
 <h2 id="ROS">ROS</h2><p>ROS Wiki 上有针对 TK1 的<a href="http://wiki.ros.org/NvidiaJetsonTK1" target="_blank" rel="external">页面</a>，目前还不完善，可以跟踪。</p>
 <h3 id="安装_OpenCV">安装 OpenCV</h3><p><a href="https://devtalk.nvidia.com/default/topic/790032/embedded-systems/opencv4tegra-for-l4t-has-problem/" target="_blank" rel="external">Till Nov.24th, <code>OpenCV4Tegra</code> is totally a piece of shit</a>. </p>
@@ -807,7 +803,7 @@
     <link href="http://ziyangli.github.io/2014/12/09/hexo/"/>
     <id>http://ziyangli.github.io/2014/12/09/hexo/</id>
     <published>2014-12-09T08:12:04.000Z</published>
-    <updated>2015-07-26T14:33:18.841Z</updated>
+    <updated>2015-08-24T03:13:28.000Z</updated>
     <content type="html"><![CDATA[<h2 id="安装_nvm_(Node_Version_Manager)">安装 <a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a> (Node Version Manager)</h2><p>利用官方脚本</p>
 <blockquote>
 <p>脚本会把 nvm 克隆到 ~/.nvm</p>
@@ -841,7 +837,23 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-tag-asset-res --save</span><br></pre></td></tr></table></figure>
 <h2 id="使用">使用</h2><p>发现新终端内总是需要先开启 nvm</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>nvm <span class="keyword">use</span> [tab]</span><br></pre></td></tr></table></figure>
-<h2 id="CDN_加速"><a href="http://libs.useso.com/" target="_blank" rel="external">CDN 加速</a></h2>]]></content>
+<h2 id="CDN_加速"><a href="http://libs.useso.com/" target="_blank" rel="external">CDN 加速</a></h2><h2 id="设定归档页面文章的篇数">设定归档页面文章的篇数</h2><p>安装 Hexo 插件。在站点目录下使用 <code>npm install --save</code> 安装如下扩展：</p>
+<pre><code>hexo-generator-<span class="built_in">index</span>
+hexo-generator-archive
+hexo-generator-<span class="keyword">tag</span>
+</code></pre><p>安装完成后，在 站点配置文章 中，设定：</p>
+<pre><code><span class="attribute">index_generator</span>:
+    <span class="attribute">per_page</span>: <span class="number">5</span>
+
+<span class="attribute">archive_generator</span>:
+    <span class="attribute">per_page</span>: <span class="number">20</span>
+    <span class="attribute">yearly</span>: true
+    <span class="attribute">monthly</span>: true
+
+<span class="attribute">tag_generator</span>:
+    <span class="attribute">per_page</span>: <span class="number">10</span>
+</code></pre><p>将 per_page 设定成所需要的篇数</p>
+]]></content>
     <summary type="html">
     <![CDATA[<h2 id="安装_nvm_(Node_Version_Manager)">安装 <a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a> (Node Version M]]>
     </summary>

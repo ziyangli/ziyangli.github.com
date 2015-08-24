@@ -73,6 +73,16 @@
 <![endif]-->
   
 
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?19e25195f2bf0a951067d8d8b7cda915";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
 
 
   <div class="container one-column 
@@ -502,23 +512,18 @@
 
       
         
-          <span itemprop="articleBody"><h2 id="Shadowsocks">Shadowsocks</h2><h3 id="服务器端">服务器端</h3><ul>
-<li>安装</li>
-</ul>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> python-pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
+          <span itemprop="articleBody"><h2 id="Shadowsocks">Shadowsocks</h2><h3 id="服务器端">服务器端</h3><h4 id="安装"><a href="http://www.phpgao.com/shadowsocks_on_linux.html" target="_blank" rel="external">安装</a></h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> python-pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
+<h4 id="配置"><a href="https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File" target="_blank" rel="external">配置</a></h4><p>Create a config file <strong>/etc/shadowsocks.json</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">server</span>":<span class="value"><span class="string">"server_ip"</span></span>,</span><br><span class="line">    "<span class="attribute">server_port</span>":<span class="value"><span class="number">433</span></span>,</span><br><span class="line">    "<span class="attribute">local_address</span>": <span class="value"><span class="string">"127.0.0.1"</span></span>,</span><br><span class="line">    "<span class="attribute">local_port</span>":<span class="value"><span class="number">1080</span></span>,</span><br><span class="line">    "<span class="attribute">password</span>":<span class="value"><span class="string">"mypassword"</span></span>,</span><br><span class="line">    "<span class="attribute">timeout</span>":<span class="value"><span class="number">300</span></span>,</span><br><span class="line">    "<span class="attribute">method</span>":<span class="value"><span class="string">"rc4-md5"</span></span>,</span><br><span class="line">    "<span class="attribute">fast_open</span>": <span class="value"><span class="literal">true</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="启用_shasa20_加密">启用 <code>shasa20</code> 加密</h4><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">apt-get install python-m2crypto</span><br><span class="line"></span><br><span class="line">wget https://download.libsodium.org/libsodium/releases/libsodium-1.0.1.tar.gz</span><br><span class="line">tar zxvf libsodium-1.0.1.tar.gz</span><br><span class="line">cd libsodium-1.0.1</span><br><span class="line"><span class="keyword">.</span>/configure</span><br><span class="line">make &amp;&amp; make<span class="instruction"> check</span><br><span class="line"></span>make install</span><br></pre></td></tr></table></figure>
 <ul>
-<li><a href="https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File" target="_blank" rel="external">配置</a></li>
+<li><a href="http://www.phpgao.com/shadowsocks_chacha20.htmlhttp://www.phpgao.com/shadowsocks_chacha20.html" target="_blank" rel="external">修复关联</a></li>
 </ul>
-<p>Create a config file <strong>/etc/shadowsocks.json</strong></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">server</span>":<span class="value"><span class="string">"0.0.0.0"</span></span>,</span><br><span class="line">    "<span class="attribute">server_port</span>":<span class="value"><span class="number">433</span></span>,</span><br><span class="line">    "<span class="attribute">local_address</span>": <span class="value"><span class="string">"127.0.0.1"</span></span>,</span><br><span class="line">    "<span class="attribute">local_port</span>":<span class="value"><span class="number">1080</span></span>,</span><br><span class="line">    "<span class="attribute">password</span>":<span class="value"><span class="string">"mypassword"</span></span>,</span><br><span class="line">    "<span class="attribute">timeout</span>":<span class="value"><span class="number">300</span></span>,</span><br><span class="line">    "<span class="attribute">method</span>":<span class="value"><span class="string">"rc4-md5"</span></span>,</span><br><span class="line">    "<span class="attribute">fast_open</span>": <span class="value"><span class="literal">true</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>开启与关闭</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks<span class="class">.json</span> -d start</span><br><span class="line">ssserver -c /etc/shadowsocks<span class="class">.json</span> -d stop</span><br></pre></td></tr></table></figure>
-<ul>
-<li><a href="https://github.com/shadowsocks/shadowsocks/wiki/Optimizing-Shadowsocks" target="_blank" rel="external">优化</a></li>
-</ul>
-<p>事实上，由于国内网络连 DO 主机的速度，根本谈不上优化。。。</p>
+<p>It is said that we need to <a href="http://www.phpgao.com/shadowsocks_chacha20.html" target="_blank" rel="external">fix <strong>association</strong></a>, though I have no idea what it means.</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 修复关联</span><br><span class="line">echo /usr/<span class="keyword">local</span>/lib &gt; /etc/ld.<span class="keyword">so</span>.<span class="keyword">conf</span>.<span class="keyword">d</span>/usr_local_lib.<span class="keyword">conf</span></span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure>
+<h4 id="开启与关闭">开启与关闭</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks<span class="class">.json</span> -d start</span><br><span class="line">ssserver -c /etc/shadowsocks<span class="class">.json</span> -d stop</span><br></pre></td></tr></table></figure>
+<h4 id="优化"><a href="https://github.com/shadowsocks/shadowsocks/wiki/Optimizing-Shadowsocks" target="_blank" rel="external">优化</a></h4><p>事实上，由于国内网络连 DO 主机的速度，根本谈不上优化。。。</p>
+<h4 id="解决_DO_CSS_被墙">解决 DO CSS 被墙</h4><p>在 <strong>/etc/hosts</strong> 添加<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">199<span class="class">.27</span><span class="class">.79</span><span class="class">.249</span> <span class="tag">cloud-cdn-digitalocean-com</span><span class="class">.global</span><span class="class">.ssl</span><span class="class">.fastly</span><span class="class">.net</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="客户端">客户端</h3><ul>
 <li>下载后端</li>
 </ul>
@@ -544,6 +549,7 @@
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules</span><br></pre></td></tr></table></figure>
 <p>修改 <strong>/etc/network/interfaces</strong>，在 eth0 下添加：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pre</span>-<span class="keyword">up</span> iptables-restore &lt; /etc/iptables-rules</span><br></pre></td></tr></table></figure></p>
 <p>最后清理 nash-hotplug，修改 <strong>/etc/rc.local</strong> 文件，在 <code>exit 0</code> 之前添加此命令： <code>pkill -9 nash</code></p>
+<h2 id="dnsmasq"><a href="https://github.com/softwaredownload/openwrt-fanqiang/blob/master/ebook/03.5.md" target="_blank" rel="external">dnsmasq</a></h2><p>Dnsmasq 用于引导对 DNS 服务器的访问，比如说访问国内地址，就去查 114 DNS 服务器，如果访问国外地址，就去查 8.8.8.8 服务器。</p>
 </span>
         
       
@@ -594,7 +600,7 @@
 
       <section class="site-overview">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="/images/default_avatar.jpg" alt="Ziyang Li" itemprop="image"/>
+          <img class="site-author-image" src="/images/avatar.png" alt="Ziyang Li" itemprop="image"/>
           <p class="site-author-name" itemprop="name">Ziyang Li</p>
         </div>
         <p class="site-description motion-element" itemprop="description">Busy Dying</p>

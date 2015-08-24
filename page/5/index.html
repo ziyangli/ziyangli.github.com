@@ -73,6 +73,16 @@
 <![endif]-->
   
 
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?19e25195f2bf0a951067d8d8b7cda915";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
 
 
   <div class="container one-column 
@@ -252,7 +262,23 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-tag-asset-res --save</span><br></pre></td></tr></table></figure>
 <h2 id="使用">使用</h2><p>发现新终端内总是需要先开启 nvm</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>nvm <span class="keyword">use</span> [tab]</span><br></pre></td></tr></table></figure>
-<h2 id="CDN_加速"><a href="http://libs.useso.com/" target="_blank" rel="external">CDN 加速</a></h2></span>
+<h2 id="CDN_加速"><a href="http://libs.useso.com/" target="_blank" rel="external">CDN 加速</a></h2><h2 id="设定归档页面文章的篇数">设定归档页面文章的篇数</h2><p>安装 Hexo 插件。在站点目录下使用 <code>npm install --save</code> 安装如下扩展：</p>
+<pre><code>hexo-generator-<span class="built_in">index</span>
+hexo-generator-archive
+hexo-generator-<span class="keyword">tag</span>
+</code></pre><p>安装完成后，在 站点配置文章 中，设定：</p>
+<pre><code><span class="attribute">index_generator</span>:
+    <span class="attribute">per_page</span>: <span class="number">5</span>
+
+<span class="attribute">archive_generator</span>:
+    <span class="attribute">per_page</span>: <span class="number">20</span>
+    <span class="attribute">yearly</span>: true
+    <span class="attribute">monthly</span>: true
+
+<span class="attribute">tag_generator</span>:
+    <span class="attribute">per_page</span>: <span class="number">10</span>
+</code></pre><p>将 per_page 设定成所需要的篇数</p>
+</span>
         
       
     </div>
@@ -302,7 +328,7 @@
 
       <section class="site-overview">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="/images/default_avatar.jpg" alt="Ziyang Li" itemprop="image"/>
+          <img class="site-author-image" src="/images/avatar.png" alt="Ziyang Li" itemprop="image"/>
           <p class="site-author-name" itemprop="name">Ziyang Li</p>
         </div>
         <p class="site-description motion-element" itemprop="description">Busy Dying</p>
